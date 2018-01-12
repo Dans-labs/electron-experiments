@@ -1,0 +1,14 @@
+{
+  "name": "electron-experiments",
+  "version": "1.0.0",
+  "description": "experiments with electron",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Richard van Heest",
+  "license": "ISC",
+  "dependencies": {
+    "electron": "^1.7.10"
+  }
+}
