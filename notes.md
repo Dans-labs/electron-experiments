@@ -31,7 +31,7 @@ Install/release the application
 * download/point to the correct icons
   * I used http://www.iconarchive.com/show/real-vista-business-icons-by-iconshock/shopping-cart-icon.html
 * (to create the Windows release on Mac, you need to `brew cask install xquartz` and `brew install wine` first!)
-* run the package scripts:
+* run the package scripts (note: you can't run these in parallel!):
   * Windows: `npm run package-win`
   * Mac: `npm run package-mac`
   * Linux: `npm run package-linux`
