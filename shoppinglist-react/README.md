@@ -6,7 +6,7 @@ Boilerplate copied and modified from [alexakasanjeev/electron-react-quick-start]
 [alexakasanjeev/electron-react-quick-start]: https://github.com/alexakasanjeev/electron-react-quick-start
 
 ### Building
-1. clone this repository
+1. clone this repository (`git clone https://github.com/rvanheest-DANS-KNAW/electron-experiments.git`)
 2. `cd` into this directory
 3. install the dependencies (`npm install`)
 4. start the webpack first (`npm run dev`)
