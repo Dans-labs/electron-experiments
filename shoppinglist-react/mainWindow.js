@@ -11,21 +11,21 @@ class List extends Component {
   }
 
   componentDidMount() {
-    ipcRenderer.on('item:add', this.handleItemAddEvent.bind(this))
-    ipcRenderer.on('item:clear', this.handleItemClearEvent.bind(this))
+    ipcRenderer.on('item:add', this.handleItemAddEvent)
+    ipcRenderer.on('item:clear', this.handleItemClearEvent)
   }
 
   componentWillUnmount() {
-    ipcRenderer.removeListener('item:add', this.handleItemAddEvent.bind(this))
-    ipcRenderer.removeListener('item:clear', this.handleItemClearEvent.bind(this))
+    ipcRenderer.removeListener('item:add', this.handleItemAddEvent)
+    ipcRenderer.removeListener('item:clear', this.handleItemClearEvent)
   }
 
-  handleItemAddEvent(event, item) {
+  handleItemAddEvent = (event, item) => {
     const newState = [...this.state.items, item]
     this.setState({items: newState})
   }
 
-  handleItemClearEvent(event, item) {
+  handleItemClearEvent = (event, item) => {
     this.setState({items: []})
   }
 

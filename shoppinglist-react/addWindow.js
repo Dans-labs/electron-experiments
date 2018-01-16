@@ -7,23 +7,18 @@ class Form extends Component {
   constructor() {
     super()
     this.state = {value: ''}
-
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
-    this.handleCancel = this.handleCancel.bind(this)
   }
 
-  handleChange(event) {
+  handleChange = (event) => {
     this.setState({value: event.target.value});
   }
 
-  handleSubmit(event) {
+  handleSubmit = (event) => {
     event.preventDefault()
     ipcRenderer.send('item:add', {id: uuid(), item: this.state.value})
   }
 
-  handleCancel(event) {
-    console.log('cancel button')
+  handleCancel = (event) => {
     event.preventDefault()
     ipcRenderer.send('item:cancel')
   }
