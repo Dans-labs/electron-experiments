@@ -13,13 +13,15 @@ let addWindow;
 // Listen for app to be ready
 app.on('ready', function() {
   // Create new window
-  mainWindow = new BrowserWindow({});
+  mainWindow = new BrowserWindow({show: false});
   // Load html into window
   mainWindow.loadURL(url.format({
       pathname: path.join(__dirname, 'mainWindow.html'),
       protocol: 'file:',
       slashes: true
   }));
+  // Show addWindow once it is ready
+  mainWindow.once('ready-to-show', () => mainWindow.show());
   // Quit app when closed
   mainWindow.on('closed', function() {
       app.quit();
@@ -37,7 +39,10 @@ function createAddWindow() {
   addWindow = new BrowserWindow({
       width: 300,
       height: 200,
-      title: 'Add Shopping List Item'
+      title: 'Add Shopping List Item',
+      parent: mainWindow,
+      modal: true,
+      show: false
   });
   // Load html into window
   addWindow.loadURL(url.format({
@@ -45,8 +50,10 @@ function createAddWindow() {
       protocol: 'file:',
       slashes: true
   }));
+  // Show addWindow once it is ready
+  addWindow.once('ready-to-show', () => addWindow.show());
   // Garbage collection handle
-  addWindow.on('close', function() {
+  addWindow.on('closed', function() {
       addWindow = null;
   });
 }
@@ -56,6 +63,8 @@ ipcMain.on('item:add', function(e, item) {
   mainWindow.webContents.send('item:add', item);
   addWindow.close();
 });
+// Catch item:clear
+ipcMain.on('item:cancel', () => addWindow.close());
 
 // Create menu template
 const mainMenuTemplate = [
@@ -79,7 +88,7 @@ const mainMenuTemplate = [
               label: 'Quit',
               accelerator: process.platform == 'darwin' ? 'Command+Q' : 'Ctrl+Q',
               click() {
-                  app.quit();
+                addWindow == null ? app.quit() : addWindow.close();
               }
           }
       ]
