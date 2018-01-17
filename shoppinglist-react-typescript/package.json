@@ -1,0 +1,41 @@
+{
+  "name": "shoppinglist-react-typescript",
+  "version": "1.0.0",
+  "description": "A minimal Electron React application",
+  "main": "main.js",
+  "scripts": {
+    "dev": "webpack --watch",
+    "start": "electron .",
+    "package-mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=assets/icons/mac/icon.icns --prune=true --out=release-builds",
+    "package-win": "electron-packager . shoppinglist --overwrite --asar=true --platform=win32 --arch=ia32 --icon=assets/icons/win/icon.ico --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=ShoppingList",
+    "package-linux": "electron-packager . shoppinglist --overwrite --asar=true --platform=linux --arch=x64 --icon=assets/icons/png/icon.png --prune=true --out=release-builds"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rvanheest-DANS-KNAW/electron-experiments.git"
+  },
+  "author": "Richard van Heest",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rvanheest-DANS-KNAW/electron-experiments/issues"
+  },
+  "homepage": "https://github.com/rvanheest-DANS-KNAW/electron-experiments#readme",
+  "dependencies": {
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "uuid": "^3.2.1",
+    "electron": "^1.7.10"
+  },
+  "devDependencies": {
+    "@types/electron": "^1.6.10",
+    "@types/react": "^16.0.34",
+    "@types/react-dom": "^16.0.3",
+    "@types/uuid": "^3.4.3",
+    "awesome-typescript-loader": "^3.4.1",
+    "electron-packager": "^10.1.1",
+    "electron-react-devtools": "^0.5.3",
+    "source-map-loader": "^0.2.3",
+    "typescript": "^2.6.2",
+    "webpack": "^3.10.0"
+  }
+}
