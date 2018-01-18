@@ -1,4 +1,4 @@
-Implementation of a simple search app with React for the browser (instead of Electron)
+Implementation of a simple search app with React for the browser (instead of Electron).
 Initial setup for this project is taken from [tutorialpoint] with additional browser hot loading from [gaearon/react-hot-loader].
 
 [tutorialpoint]: https://www.tutorialspoint.com/reactjs/reactjs_environment_setup.htm
