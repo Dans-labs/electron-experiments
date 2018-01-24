@@ -21,10 +21,10 @@
   },
   "homepage": "https://github.com/rvanheest-DANS-KNAW/electron-experiments#readme",
   "dependencies": {
+    "electron": "^1.7.11",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
-    "uuid": "^3.2.1",
-    "electron": "^1.7.10"
+    "uuid": "^3.2.1"
   },
   "devDependencies": {
     "@types/electron": "^1.6.10",
