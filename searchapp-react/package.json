@@ -1,7 +1,7 @@
 {
-  "name": "shoppinglist-react",
+  "name": "searchapp-react",
   "version": "1.0.0",
-  "description": "A minimal React application",
+  "description": "A minimal React web application",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --hot"
