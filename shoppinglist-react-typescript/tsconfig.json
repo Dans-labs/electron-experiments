@@ -1,0 +1,25 @@
+{
+    "compilerOptions": {
+        "outDir": "./dist/",
+        "sourceMap": true,
+        "noImplicitAny": true,
+        "strictNullChecks": true,
+        "module": "es2015",
+        "target": "es5",
+        "jsx": "react",
+        // "moduleResolution": "node"
+        "types": [
+            "webpack-env",
+            "node"
+        ]
+    },
+    "awesomeTypescriptLoaderOptions": {
+        "useWebpackText": true,
+        "useTranspileModule": true,
+        "doTypeCheck": true,
+        "forkChecker": true
+    },
+    "include": [
+        "./src/**/*"
+    ]
+}
