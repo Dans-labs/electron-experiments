@@ -24,7 +24,7 @@ const receiveLens = new Lens<UserViewModel, [boolean, boolean, User]>(
 const name = Lens.fromPath<UserViewModel, 'user', 'name'>(['user', 'name'])
 const age = Lens.fromPath<UserViewModel, 'user', 'age'>(['user', 'age'])
 
-export const user: Reducer<UserViewModel> = (state: UserViewModel = initialState, action) => {
+export const user: Reducer<UserViewModel> = (state = initialState, action) => {
     switch (action.type) {
         case UserActionTypes.FETCH_USER: {
             return fetchingLens.set(true)(state)

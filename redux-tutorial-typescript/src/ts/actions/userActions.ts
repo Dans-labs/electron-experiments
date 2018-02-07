@@ -7,12 +7,12 @@ const fetchUser: () => ReduxAction<User> = () => ({
     payload: ({name: "Richard", age: 25}),
 })
 
-const setUserName: ((name: string) => ReduxAction<string>) = (name: string) => ({
+const setUserName: (name: string) => ReduxAction<string> = name => ({
     type: UserActionTypes.SET_USER_NAME,
     payload: name,
 })
 
-const setUserAge: ((age: number) => ReduxAction<number>) = (age: number) => ({
+const setUserAge: (age: number) => ReduxAction<number> = age => ({
     type: UserActionTypes.SET_USER_AGE,
     payload: age,
 })
