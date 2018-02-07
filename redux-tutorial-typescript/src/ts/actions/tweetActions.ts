@@ -19,17 +19,17 @@ const fetchTweets: () => (dispatch: Dispatch) => void = () => {
     }
 }
 
-const addTweet: (id: string, text: string) => ReduxAction<Tweet> = (id: string, text: string) => ({
+const addTweet: (id: string, text: string) => ReduxAction<Tweet> = (id, text) => ({
     type: TweetActionTypes.ADD_TWEET,
     payload: ({id: id, text: text}),
 })
 
-const updateTweet: (id: string, text: string) => ReduxAction<Tweet> = (id: string, text: string) => ({
+const updateTweet: (id: string, text: string) => ReduxAction<Tweet> = (id, text) => ({
     type: TweetActionTypes.UPDATE_TWEET,
     payload: ({id: id, text: text}),
 })
 
-const deleteTweet: (id: string) => ReduxAction<string> = (id: string) => ({
+const deleteTweet: (id: string) => ReduxAction<string> = id => ({
     type: TweetActionTypes.DELETE_TWEET,
     payload: id,
 })

@@ -3,7 +3,7 @@ import {TweetActionTypes} from "../constants/tweetsConstants"
 import {Reducer} from "redux"
 import {Lens} from "monocle-ts"
 
-const initalState: TweetViewModel = {
+const initialState: TweetViewModel = {
     tweets: [],
     fetching: false,
     fetched: false,
@@ -21,7 +21,7 @@ const receiveLens = new Lens<TweetViewModel, [boolean, boolean, Tweet[]]>(
 const tweetsLens = Lens.fromProp<TweetViewModel, 'tweets'>('tweets')
 const tweetTextLens = Lens.fromProp<Tweet, 'text'>('text')
 
-export const tweets: Reducer<TweetViewModel> = (state: TweetViewModel = initalState, action) => {
+export const tweets: Reducer<TweetViewModel> = (state = initialState, action) => {
     switch (action.type) {
         case TweetActionTypes.FETCH_TWEETS_PENDING: {
             return fetchingLens.set(true)(state)
