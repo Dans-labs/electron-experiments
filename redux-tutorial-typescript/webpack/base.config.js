@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
     entry: [
@@ -13,7 +14,7 @@ module.exports = {
     },
 
     module: {
-        loaders: [
+        rules: [
             {
                 test: /\.[j|t]sx?$/,
                 exclude: /(node_modules|bower_components)/,
@@ -23,6 +24,14 @@ module.exports = {
                     plugins: ['transform-class-properties', 'transform-object-rest-spread', 'react-hot-loader/webpack'],
                 },
             },
+            {
+                test: /\.css$/,
+                use: ExtractTextPlugin.extract({
+                    use: [
+                        'css-loader',
+                    ],
+                }),
+            },
         ],
     },
 
@@ -30,8 +39,11 @@ module.exports = {
         new webpack.EnvironmentPlugin([
             'NODE_ENV',
         ]),
+        // insert the bundled JavaScript into this file
         new HtmlWebpackPlugin({
             template: 'index.html',
         }),
+        // Extract imported CSS into own file
+        new ExtractTextPlugin('[name].bundle.[chunkhash].css'),
     ],
 };
