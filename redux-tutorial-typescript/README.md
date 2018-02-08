@@ -22,7 +22,12 @@ The original code (in JavaScript, see [GitHub]) was then ported to TypeScript. T
 Installation
 ------------
 
-To install this code, please make sure that `npm` and `webpack` are installed. Then run `npm install` to download all
+To install this code, please make sure that `npm` and `webpack` are installed.
+
+    brew install node
+    npm install -g webpack
+
+Then run `npm install` to download all
 dependencies. Finally execute one or more of the following commands:
 
     npm start           # starts the development server; go to http://localhost:8080 in your browser to see the result
