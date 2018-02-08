@@ -6,6 +6,7 @@ import {connect, Dispatch} from "react-redux"
 import {AppState} from "../model/app"
 import {fetchUser} from "../actions/userActions"
 import {fetchTweets, updateTweet} from "../actions/tweetActions"
+const monkeys = require("../../img/chimps.jpg")
 
 interface LayoutProps {
     user: User
@@ -35,6 +36,7 @@ class Layout extends Component<LayoutProps> {
 
         return <div>
             <h1 className='name'>{user.name}</h1>
+            <img src={monkeys} width="200px"/><br/>
             {body}
         </div>
     }
