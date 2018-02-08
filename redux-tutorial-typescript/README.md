@@ -10,12 +10,13 @@ The original code (in JavaScript, see [GitHub]) was then ported to TypeScript. T
     * minify/uglify the produced JavaScript on production deployment
     * separating the CSS in a separate (minified) file on production deployment
     * packaging related assets (images, etc.) with the production deployment
-* adding a Maven wrapper for integration with projects that are deployed in such ecosystem
+* adding a Maven wrapper for integration with projects that are deployed in such ecosystem (inspired by [phillipgreenii])
 
 [YouTube]: https://www.youtube.com/playlist?list=PLoYCgNOIyGADILc3iUJzygCqC8Tt3bRXt
 [LearnCode.academy]: https://www.youtube.com/channel/UCVTlvUkGslCV_h-nSAId8Sw
 [GitHub]: https://github.com/learncodeacademy/react-js-tutorials
 [Lenses]: https://github.com/gcanti/monocle-ts
+[phillipgreenii]: https://gist.github.com/phillipgreenii/7c954e3c3911e5c32bd0
 
 
 Installation
