@@ -1,22 +1,11 @@
-const webpack = require("webpack");
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     entry: [
         'react-hot-loader/patch',
         './src/ts/client.tsx',
     ],
-    output: {
-        filename: "./dist/bundle.js",
-    },
-
-    devServer: {
-        inline: true,
-        port: 8080,
-        hot: true
-    },
-
-    // Enable sourcemaps for debugging webpack's output.
-    devtool: "source-map",
 
     resolve: {
         // Add '.ts' and '.tsx' as resolvable extensions.
@@ -31,13 +20,18 @@ module.exports = {
                 loader: 'awesome-typescript-loader',
                 query: {
                     presets: ['react', 'es2015'],
-                    plugins: ['transform-class-properties', 'transform-object-rest-spread', 'react-hot-loader/webpack']
-                }
+                    plugins: ['transform-class-properties', 'transform-object-rest-spread', 'react-hot-loader/webpack'],
+                },
             },
-        ]
+        ],
     },
 
     plugins: [
-        new webpack.NamedModulesPlugin(),
-    ]
+        new webpack.EnvironmentPlugin([
+            'NODE_ENV',
+        ]),
+        new HtmlWebpackPlugin({
+            template: 'index.html',
+        }),
+    ],
 };
