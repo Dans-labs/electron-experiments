@@ -34,7 +34,7 @@ class Layout extends Component<LayoutProps> {
             </div>
 
         return <div>
-            <h1>{user.name}</h1>
+            <h1 className='name'>{user.name}</h1>
             {body}
         </div>
     }

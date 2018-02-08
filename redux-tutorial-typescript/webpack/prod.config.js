@@ -28,5 +28,9 @@ module.exports = merge(baseConfig, {
             },
             extractComments: true,
         }),
+        // Minify CSS
+        new webpack.LoaderOptionsPlugin({
+            minimize: true,
+        }),
     ],
 });
