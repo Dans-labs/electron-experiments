@@ -30,7 +30,7 @@ class Layout extends Component<LayoutProps> {
         const body = !tweets.length
             ? <button onClick={this.fetchTweets}>load tweets</button>
             : <div>
-                <button onClick={this.updateFirstTweet}>update first tweet !</button>
+                <button onClick={this.updateFirstTweet}>update first tweet</button>
                 <ul>{tweets.map(tweet => <li key={tweet.id}>{tweet.text}</li>)}</ul>
             </div>
 
@@ -43,7 +43,6 @@ class Layout extends Component<LayoutProps> {
 }
 
 const mapStateToProps = (store: AppState) => {
-    console.log(store)
     return ({
         user: store.user.user,
         userFetched: store.user.fetched,
