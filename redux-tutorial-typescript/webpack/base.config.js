@@ -6,7 +6,7 @@ const path = require('path');
 module.exports = {
     entry: [
         'react-hot-loader/patch',
-        './src/ts/client.tsx',
+        './src/main/typescript/client.tsx',
     ],
 
     resolve: {
@@ -53,7 +53,7 @@ module.exports = {
         ]),
         // insert the bundled JavaScript into this file
         new HtmlWebpackPlugin({
-            template: 'index.html',
+            template: './src/main/html/index.html',
         }),
         // Extract imported CSS into own file
         new ExtractTextPlugin('[name].bundle.[chunkhash].css'),

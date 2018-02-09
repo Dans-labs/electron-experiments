@@ -20,6 +20,8 @@
     "forkChecker": true
   },
   "include": [
-    "./src/**/*"
+    "./src/main/typescript/**/*",
+    "./src/main/css/*",
+    "./src/main/img/*"
   ]
 }
