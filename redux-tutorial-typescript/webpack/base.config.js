@@ -1,12 +1,18 @@
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const path = require('path');
 
 module.exports = {
     entry: [
         'react-hot-loader/patch',
         './src/ts/client.tsx',
     ],
+
+    output: {
+        path: __dirname + '../target/',
+        filename: 'easy-deposit-ui.bundle.js'
+    },
 
     resolve: {
         // Add '.ts' and '.tsx' as resolvable extensions.

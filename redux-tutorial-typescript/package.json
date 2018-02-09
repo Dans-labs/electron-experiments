@@ -5,10 +5,7 @@
   "main": "webpack.config.js",
   "scripts": {
     "start": "NODE_ENV=development webpack-dev-server --hot --config webpack/dev.config.js",
-    "build": "NODE_ENV=production webpack --config webpack/prod.config.js",
-    "deploy": "npm run build && ./deploy.sh",
-    "prepare-for-maven-war": "mkdir target && cp -rfp ./build target",
-    "clean": "rm -rf build"
+    "build": "NODE_ENV=production webpack --config webpack/prod.config.js"
   },
   "author": "",
   "license": "Apache-2.0",
@@ -21,7 +18,8 @@
     "redux": "^3.7.2",
     "redux-logger": "^3.0.6",
     "redux-promise-middleware": "^5.0.0",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "target": "0.0.2"
   },
   "devDependencies": {
     "@types/react": "^16.0.36",

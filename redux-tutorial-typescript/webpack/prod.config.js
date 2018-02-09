@@ -7,7 +7,7 @@ const baseConfig = require('./base.config.js');
 
 module.exports = merge(baseConfig, {
     output: {
-        path: path.join(process.cwd(), 'build'),
+        path: path.join(process.cwd(), 'target/build'),
         filename: '[name].bundle.[chunkhash].js',
     },
 
