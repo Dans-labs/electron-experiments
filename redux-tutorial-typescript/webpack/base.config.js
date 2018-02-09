@@ -9,11 +9,6 @@ module.exports = {
         './src/ts/client.tsx',
     ],
 
-    output: {
-        path: __dirname + '../target/',
-        filename: 'easy-deposit-ui.bundle.js'
-    },
-
     resolve: {
         // Add '.ts' and '.tsx' as resolvable extensions.
         extensions: [".webpack.js", ".ts", ".tsx", ".js", ".jsx", ".json"]

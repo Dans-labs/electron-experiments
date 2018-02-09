@@ -48,7 +48,6 @@
                             <executable>npm</executable>
                             <arguments>
                                 <argument>install</argument>
-                                <argument>--prefix ./target</argument>
                             </arguments>
                         </configuration>
                     </execution>
@@ -95,4 +94,48 @@
             </plugin>
         </plugins>
     </build>
+    <profiles>
+        <profile>
+            <id>rpm</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+                <file>
+                    <exists>/usr/local/bin/rpm</exists>
+                </file>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>rpm-maven-plugin</artifactId>
+                        <version>2.1.5</version>
+                        <executions>
+                            <execution>
+                                <id>attach-rpm</id>
+                                <goals>
+                                    <goal>attached-rpm</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <defaultUsername>root</defaultUsername>
+                            <defaultGroupname>root</defaultGroupname>
+                            <group>Applications/Archiving</group>
+                            <targetOS>Linux</targetOS>
+                            <mappings>
+                                <mapping>
+                                    <directory>/var/www/html/redux-tutorial-typescript</directory>
+                                    <sources>
+                                        <source>
+                                            <location>target/build</location>
+                                        </source>
+                                    </sources>
+                                </mapping>
+                            </mappings>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
