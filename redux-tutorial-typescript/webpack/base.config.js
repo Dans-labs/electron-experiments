@@ -1,6 +1,6 @@
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
     entry: [
@@ -10,14 +10,18 @@ module.exports = {
 
     resolve: {
         // Add '.ts' and '.tsx' as resolvable extensions.
-        extensions: [".webpack.js", ".ts", ".tsx", ".js", ".jsx", ".json"]
+        extensions: ['.ts', '.tsx', '.js', '.jsx', '.css'],
+        modules: [
+            './src/main/typescript',
+            'node_modules',
+        ]
     },
 
     module: {
         rules: [
             {
                 test: /\.[j|t]sx?$/,
-                exclude: /(node_modules|bower_components)/,
+                exclude: /node_modules/,
                 loader: 'awesome-typescript-loader',
                 query: {
                     presets: ['react', 'es2015'],
@@ -25,20 +29,12 @@ module.exports = {
                 },
             },
             {
-                test: /\.css$/,
-                use: ExtractTextPlugin.extract({
-                    use: [
-                        'css-loader',
-                    ],
-                }),
-            },
-            {
                 test: /\.(jpe?g|png|gif|svg)$/i,
                 use: [
                     {
-                        loader: "file-loader",
+                        loader: 'file-loader',
                         options: {
-                            name: "app/images/[name].[ext]",
+                            name: 'app/images/[name].[ext]',
                         }
                     },
                 ],
