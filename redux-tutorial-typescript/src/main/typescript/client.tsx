@@ -3,7 +3,7 @@ import * as ReactDOM from "react-dom"
 import {Provider} from "react-redux"
 import store from "./store"
 import Layout from "./components/Layout"
-import "../resources/css/my-styling.css"
+import "../resources/css/my-styling"
 
 ReactDOM.render(
     <Provider store={store}><Layout/></Provider>,

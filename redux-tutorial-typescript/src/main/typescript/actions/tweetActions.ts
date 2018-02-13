@@ -3,19 +3,15 @@ import axios from "axios"
 import {Tweet} from "../model/tweet"
 import {Dispatch, ReduxAction} from "../util"
 
-const fetchTweets: () => (dispatch: Dispatch) => void = () => {
-    return (dispatch: Dispatch) => {
-        dispatch({
-            type: TweetActionTypes.FETCH_TWEETS,
-            payload: axios.get("http://rest.learncode.academy/api/reacttest/tweets"),
-            //// TODO when using multiple calls chained, use the construction below.
-            //// see also https://github.com/pburtchaell/redux-promise-middleware/blob/master/docs/guides/async-await.md
-            // async payload() {
-            //     const response = await axios.get("http://rest.learncode.academy/api/reacttest/tweets")
-            //
-            //     return response
-            // }
-        })
+const fetchTweets: (dispatch: Dispatch) => Promise<void> = async (dispatch: Dispatch) => {
+    dispatch({type: TweetActionTypes.FETCH_TWEETS_PENDING})
+
+    try {
+        const response = await axios.get("http://rest.learncode.academy/api/reacttest/tweets")
+        dispatch({type: TweetActionTypes.FETCH_TWEETS_FULFILLED, payload: response})
+    }
+    catch (e) {
+        dispatch({type: TweetActionTypes.FETCH_TWEETS_REJECTED, payload: e})
     }
 }
 

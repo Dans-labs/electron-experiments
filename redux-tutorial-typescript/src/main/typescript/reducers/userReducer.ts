@@ -12,7 +12,7 @@ const initialState: UserViewModel = {
     fetched: false,
 }
 
-// TODO it turns out that Lens.fromPath slows down the performance of IntelliJ dramatically! DON'T use that method!!!
+// it turns out that Lens.fromPath slows down the performance of IntelliJ dramatically! DON'T use that method!!!
 const fetchingLens = Lens.fromProp<UserViewModel, 'fetching'>('fetching')
 const errorLens = new Lens<UserViewModel, [boolean, string|undefined]>(
     s => [s.fetching, s.error],
@@ -23,8 +23,8 @@ const receiveLens = new Lens<UserViewModel, [boolean, boolean, User]>(
     a => s => ({...s, fetching: a[0], fetched: a[1], user: a[2]})
 )
 const userLens = Lens.fromProp<UserViewModel, 'user'>('user')
-const name = userLens.compose(Lens.fromProp<User, 'name'>('name'))
-const age = userLens.compose(Lens.fromProp<User, 'age'>('age'))
+const nameLens = userLens.compose(Lens.fromProp<User, 'name'>('name'))
+const ageLens = userLens.compose(Lens.fromProp<User, 'age'>('age'))
 
 export const user: Reducer<UserViewModel> = (state = initialState, action) => {
     switch (action.type) {
@@ -42,11 +42,11 @@ export const user: Reducer<UserViewModel> = (state = initialState, action) => {
         }
         case UserActionTypes.SET_USER_NAME: {
             // return {...state, user: {...state.user, name: action.payload}}
-            return name.set(action.payload)(state)
+            return nameLens.set(action.payload)(state)
         }
         case UserActionTypes.SET_USER_AGE: {
             // return {...state, user: {...state.user, age: action.payload}}
-            return age.set(action.payload)(state)
+            return ageLens.set(action.payload)(state)
         }
     }
     return state
