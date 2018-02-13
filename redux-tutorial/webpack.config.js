@@ -1,11 +1,16 @@
-var debug = process.env.NODE_ENV !== "production";
-var webpack = require('webpack');
-var path = require('path');
+const debug = process.env.NODE_ENV !== "production";
+const webpack = require('webpack');
+const path = require('path');
 
 module.exports = {
     context: path.join(__dirname, "src"),
     devtool: debug ? "inline-sourcemap" : null,
-    entry: ['babel-polyfill', "./js/client.jsx"],
+    entry: [
+        'babel-polyfill',
+        "./js/client.jsx",
+        // "./js/examples/async-middleware-promise.jsx",
+        // "./js/examples/async-middleware-thunk.jsx",
+    ],
     module: {
         loaders: [
             {
