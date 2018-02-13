@@ -8,7 +8,7 @@ Set up Electron App
 * (assumption: npm is already installed)
 * `npm init` and work through the Q&A
   * for `entrypoint` use `main.js`
-* `npm install -g electron`
+* `npm install -g electron` (this might require a `chmod +w /usr/local/lib/node_modules`)
 * `npm install --save electron`
 * in `package.json` replace `script.test` with `"start": "electron ."` (with this you can start the application while developing with `npm start` rather than `electron .`)
 * create the `main.js` and `index.html` (or however you wanna call this html file) files
