@@ -5,19 +5,21 @@ import {User} from "../model/user"
 import {connect} from "react-redux"
 import {AppState} from "../model/app"
 import {fetchUser} from "../actions/userActions"
-import {fetchTweets, updateTweet, callLocal} from "../actions/tweetActions"
+import {fetchTweets, updateTweet, callLocal, deleteTweet, updateTweetWithIndex} from "../actions/tweetActions"
 import {Dispatch, ReduxAction} from "../util"
 
 const monkeys = require("../../resources/img/chimps.jpg")
 
 interface LayoutProps {
     user: User
-    userFetched: boolean
     tweets: Tweet[]
+    tweetsFetching: boolean
+    tweetsFetched: boolean
     errorMsg: string
     fetchUsers: () => ReduxAction<User>
     fetchTweets: () => Promise<void>
-    updateTweet: (id: string, text: string) => ReduxAction<Tweet>
+    updateTweet: (index: number, text: string) => ReduxAction<any>
+    deleteTweet: (id: string) => ReduxAction<string>
     callLocal: () => Promise<void>
 }
 
@@ -28,27 +30,35 @@ class Layout extends Component<LayoutProps> {
 
     fetchTweets = () => this.props.fetchTweets()
 
-    updateFirstTweet = () => this.props.updateTweet("59f9fc94deab220100b5c92f", "Obama")
+    updateFirstTweet = () => this.props.updateTweet(0, "Hello World")
+
+    deleteTweet = (id: string) => this.props.deleteTweet(id)
 
     callLocal = () => this.props.callLocal()
 
     render() {
-        const {user, tweets} = this.props
+        const {user, tweets, errorMsg, tweetsFetching, tweetsFetched} = this.props
 
-        const body = this.props.errorMsg != undefined
-            ? <p>{this.props.errorMsg}</p>
-            : !tweets.length
-                ? <button onClick={this.fetchTweets}>load tweets</button>
-                : <div>
-                    <button onClick={this.updateFirstTweet}>update first tweet</button>
-                    <ul>{tweets.map(tweet => <li key={tweet.id}>{tweet.text}</li>)}</ul>
-                </div>
+        const err = errorMsg == undefined ? <div/> : <p>{errorMsg}</p>
+
+        const loadTweets = !tweets.length
+            ? <button disabled={tweetsFetching || tweetsFetched} onClick={this.fetchTweets}>load tweets</button>
+            : <div>
+                <button onClick={this.updateFirstTweet}>update first tweet</button>
+                <ul>{tweets.map(tweet => <li onDoubleClick={_ => this.deleteTweet(tweet.id)} key={tweet.id}>{tweet.text}</li>)}</ul>
+            </div>
 
         return <div>
             <h1 className='name'>{user.name}</h1>
+
             <img src={monkeys} width="200px"/><br/>
+
+            <p>this button is meant to call '/hello' on the same base URL. If this path doesn't exist, it will give a 404 in the console.</p>
             <button onClick={this.callLocal}>call '/hello'</button>
-            {body}
+
+            {err}
+
+            {loadTweets}
         </div>
     }
 }
@@ -56,8 +66,9 @@ class Layout extends Component<LayoutProps> {
 const mapStateToProps = (state: AppState) => {
     return ({
         user: state.user.user,
-        userFetched: state.user.fetched,
         tweets: state.tweets.tweets,
+        tweetsFetching: state.tweets.fetching,
+        tweetsFetched: state.tweets.fetched,
         errorMsg: state.tweets.error,
     })
 }
@@ -66,8 +77,9 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
     return ({
         fetchUsers: () => dispatch(fetchUser()),
         fetchTweets: () => fetchTweets(dispatch),
-        updateTweet: (id: string, text: string) => dispatch(updateTweet(id, text)),
-        callLocal: () => callLocal(dispatch)
+        updateTweet: (index: number, text: string) => dispatch(updateTweetWithIndex(index, text)),
+        deleteTweet: (id: string) => dispatch(deleteTweet(id)),
+        callLocal: () => callLocal(dispatch),
     })
 }
 

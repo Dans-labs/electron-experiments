@@ -21,6 +21,15 @@ const receiveLens = new Lens<TweetViewModel, [boolean, boolean, Tweet[]]>(
 )
 const tweetsLens = Lens.fromProp<TweetViewModel, 'tweets'>('tweets')
 const tweetLens = tweetsLens.composeTraversal(fromTraversable(array)<Tweet>())
+const textLens = Lens.fromProp<Tweet, 'text'>('text')
+const tweetAtIndexLens = (index: number) => new Lens<Tweet[], Tweet>(
+    tweets => {
+        console.log(tweets[index])
+        return tweets[index]
+    },
+    tweet => tweets => [...tweets.slice(0, index), tweet, ...tweets.slice(index + 1)]
+)
+const textAtIndexLens = (index: number) => tweetsLens.compose(tweetAtIndexLens(index)).compose(textLens)
 
 export const tweets: Reducer<TweetViewModel> = (state = initialState, action) => {
     switch (action.type) {
@@ -49,6 +58,10 @@ export const tweets: Reducer<TweetViewModel> = (state = initialState, action) =>
             // return {...state, tweets: newTweets}
             const { id, text } = action.payload
             return tweetLens.modify(tweet => (tweet.id === id ? {...tweet, text: text} : tweet))(state)
+        }
+        case TweetActionTypes.UPDATE_TWEET_WITH_INDEX: {
+            const {index, text} = action.payload
+            return textAtIndexLens(index).set(text)(state)
         }
         case TweetActionTypes.DELETE_TWEET: {
             // return {...state, tweets: state.tweets.filter(tweet => tweet.id !== action.payload)}

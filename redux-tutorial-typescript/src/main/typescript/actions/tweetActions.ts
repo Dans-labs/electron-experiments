@@ -35,6 +35,11 @@ const updateTweet: (id: string, text: string) => ReduxAction<Tweet> = (id, text)
     payload: ({id: id, text: text}),
 })
 
+const updateTweetWithIndex: (index: number, text: string) => ReduxAction<{index: number, text: string}> = (index, text) => ({
+    type: TweetActionTypes.UPDATE_TWEET_WITH_INDEX,
+    payload: ({index: index, text: text})
+})
+
 const deleteTweet: (id: string) => ReduxAction<string> = id => ({
     type: TweetActionTypes.DELETE_TWEET,
     payload: id,
@@ -44,6 +49,7 @@ export {
     fetchTweets,
     addTweet,
     updateTweet,
+    updateTweetWithIndex,
     deleteTweet,
     callLocal,
 }
