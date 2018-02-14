@@ -5,7 +5,7 @@ import {User} from "../model/user"
 import {connect} from "react-redux"
 import {AppState} from "../model/app"
 import {fetchUser} from "../actions/userActions"
-import {fetchTweets, updateTweet} from "../actions/tweetActions"
+import {fetchTweets, updateTweet, callLocal} from "../actions/tweetActions"
 import {Dispatch, ReduxAction} from "../util"
 
 const monkeys = require("../../resources/img/chimps.jpg")
@@ -18,6 +18,7 @@ interface LayoutProps {
     fetchUsers: () => ReduxAction<User>
     fetchTweets: () => Promise<void>
     updateTweet: (id: string, text: string) => ReduxAction<Tweet>
+    callLocal: () => Promise<void>
 }
 
 class Layout extends Component<LayoutProps> {
@@ -28,6 +29,8 @@ class Layout extends Component<LayoutProps> {
     fetchTweets = () => this.props.fetchTweets()
 
     updateFirstTweet = () => this.props.updateTweet("59f9fc94deab220100b5c92f", "Obama")
+
+    callLocal = () => this.props.callLocal()
 
     render() {
         const {user, tweets} = this.props
@@ -44,6 +47,7 @@ class Layout extends Component<LayoutProps> {
         return <div>
             <h1 className='name'>{user.name}</h1>
             <img src={monkeys} width="200px"/><br/>
+            <button onClick={this.callLocal}>call '/hello'</button>
             {body}
         </div>
     }
@@ -63,6 +67,7 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
         fetchUsers: () => dispatch(fetchUser()),
         fetchTweets: () => fetchTweets(dispatch),
         updateTweet: (id: string, text: string) => dispatch(updateTweet(id, text)),
+        callLocal: () => callLocal(dispatch)
     })
 }
 

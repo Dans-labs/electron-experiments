@@ -3,6 +3,16 @@ import axios from "axios"
 import {Tweet} from "../model/tweet"
 import {Dispatch, ReduxAction} from "../util"
 
+const callLocal: (dispatch: Dispatch) => Promise<void> = async (dispatch: Dispatch) => {
+    try {
+        const response = await axios.get("/hello")
+        console.log("response", response)
+    }
+    catch (e) {
+        console.log("error", e)
+    }
+}
+
 const fetchTweets: (dispatch: Dispatch) => Promise<void> = async (dispatch: Dispatch) => {
     dispatch({type: TweetActionTypes.FETCH_TWEETS_PENDING})
 
@@ -35,4 +45,5 @@ export {
     addTweet,
     updateTweet,
     deleteTweet,
+    callLocal,
 }
