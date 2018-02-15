@@ -1,8 +1,8 @@
 import {Tweet, TweetViewModel} from "../model/tweet"
 import {TweetActionTypes} from "../constants/tweetsConstants"
 import {Reducer} from "redux"
-import {Lens, fromTraversable, Traversal} from "monocle-ts"
-import { array } from 'fp-ts/lib/Array'
+import {fromTraversable, Lens} from "monocle-ts"
+import {array} from 'fp-ts/lib/Array'
 
 const initialState: TweetViewModel = {
     tweets: [],
@@ -23,10 +23,7 @@ const tweetsLens = Lens.fromProp<TweetViewModel, 'tweets'>('tweets')
 const tweetLens = tweetsLens.composeTraversal(fromTraversable(array)<Tweet>())
 const textLens = Lens.fromProp<Tweet, 'text'>('text')
 const tweetAtIndexLens = (index: number) => new Lens<Tweet[], Tweet>(
-    tweets => {
-        console.log(tweets[index])
-        return tweets[index]
-    },
+    tweets => tweets[index],
     tweet => tweets => [...tweets.slice(0, index), tweet, ...tweets.slice(index + 1)]
 )
 const textAtIndexLens = (index: number) => tweetsLens.compose(tweetAtIndexLens(index)).compose(textLens)
