@@ -1,11 +1,17 @@
 import {TweetActionTypes} from "../constants/tweetsConstants"
 import axios from "axios"
 import {Tweet} from "../model/tweet"
-import {Dispatch, ReduxAction} from "../util"
+import {baseURL, Dispatch, ReduxAction} from "../util"
 
+// With this method we can test interactions between client and a (fake) server
+// run 'npm run api' to start a JSON-based fake server
+// then uncomment and run these methods one by one and in the browser click the button 'call /hello'
 const callLocal: (dispatch: Dispatch) => Promise<void> = async (dispatch: Dispatch) => {
     try {
-        const response = await axios.get("/hello")
+        const response = await axios.get(baseURL() + "/hello")
+        // const response = await axios.post(baseURL() + "/hello", {id: "quux", content: "ghi"}, {headers: {"Content-Type": "application/json"}})
+        // const response = await axios.put(baseURL() + "/hello/quux", {content: "ghij"}, {headers: {"Content-Type": "application/json"}})
+        // const response = await axios.delete(baseURL() + "/hello/quux")
         console.log("response", response)
     }
     catch (e) {

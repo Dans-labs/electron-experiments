@@ -1,0 +1,28 @@
+{
+  "foo-fest": {
+    "events": [
+      {
+        "title": "Cool Title",
+        "description": "So Cool",
+        "event": "Saturday, April 9, 2016, 12 - 1pm",
+        "tags": "cool"
+      },
+      {
+        "title": "Awesom Title",
+        "description": "So Awesome",
+        "event": "Sunday, April 10, 2016, 12 - 1pm",
+        "tags": "awesome"
+      }
+    ]
+  },
+  "hello": [
+    {
+      "id": "foo",
+      "content": "abc"
+    },
+    {
+      "id": "bar",
+      "content": "def"
+    }
+  ]
+}
