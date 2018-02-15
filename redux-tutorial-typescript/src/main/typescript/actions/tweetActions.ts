@@ -6,6 +6,9 @@ import {baseURL, Dispatch, ReduxAction} from "../util"
 // With this method we can test interactions between client and a (fake) server
 // run 'npm run api' to start a JSON-based fake server
 // then uncomment and run these methods one by one and in the browser click the button 'call /hello'
+// see also
+//   * https://github.com/typicode/json-server
+//   * https://egghead.io/lessons/javascript-creating-demo-apis-with-json-server
 const callLocal: (dispatch: Dispatch) => Promise<void> = async (dispatch: Dispatch) => {
     try {
         const response = await axios.get(baseURL() + "/hello")
