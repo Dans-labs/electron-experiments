@@ -1,7 +1,8 @@
 import {TweetActionTypes} from "../constants/tweetsConstants"
 import axios from "axios"
 import {Tweet} from "../model/tweet"
-import {baseURL, Dispatch, ReduxAction} from "../util"
+import {baseURL} from "../lib/config"
+import {Dispatch, ReduxAction} from "../lib/redux"
 
 // With this method we can test interactions between client and a (fake) server
 // run 'npm run api' to start a JSON-based fake server
@@ -11,7 +12,7 @@ import {baseURL, Dispatch, ReduxAction} from "../util"
 //   * https://egghead.io/lessons/javascript-creating-demo-apis-with-json-server
 const callLocal: (dispatch: Dispatch) => Promise<void> = async (dispatch: Dispatch) => {
     try {
-        const response = await axios.get(baseURL() + "/hello")
+        const response = await axios.get(baseURL + "/hello")
         // const response = await axios.post(baseURL() + "/hello", {id: "quux", content: "ghi"}, {headers: {"Content-Type": "application/json"}})
         // const response = await axios.put(baseURL() + "/hello/quux", {content: "ghij"}, {headers: {"Content-Type": "application/json"}})
         // const response = await axios.delete(baseURL() + "/hello/quux")

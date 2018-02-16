@@ -1,6 +1,6 @@
 import {User} from "../model/user"
 import {UserActionTypes} from "../constants/userConstants"
-import {ReduxAction} from "../util"
+import {ReduxAction} from "../lib/redux"
 
 const fetchUser: () => ReduxAction<User> = () => ({
     type: UserActionTypes.FETCH_USER_FULFILLED,

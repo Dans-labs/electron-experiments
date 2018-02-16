@@ -41,7 +41,7 @@ export const tweets: Reducer<TweetViewModel> = (state = initialState, action) =>
         case TweetActionTypes.FETCH_TWEETS_FULFILLED: {
             // return {...state, fetched: false, fetching: true, tweets: action.payload.data}
             // TODO in a real application you would also check for the status code here!
-            return receiveLens.set([false, true, action.payload.data])(state)
+            return receiveLens.set([false, true, action.payload.data.filter((t: {text?: string}) => t.text)])(state)
         }
         case TweetActionTypes.ADD_TWEET: {
             // return {...state, tweets: [...state.tweets, action.payload]}

@@ -5,8 +5,8 @@ import {User} from "../model/user"
 import {connect} from "react-redux"
 import {AppState} from "../model/app"
 import {fetchUser} from "../actions/userActions"
-import {fetchTweets, updateTweet, callLocal, deleteTweet, updateTweetWithIndex} from "../actions/tweetActions"
-import {Dispatch, ReduxAction} from "../util"
+import {callLocal, deleteTweet, fetchTweets, updateTweetWithIndex} from "../actions/tweetActions"
+import {Dispatch, ReduxAction} from "../lib/redux"
 
 const monkeys = require("../../resources/img/chimps.jpg")
 
@@ -45,7 +45,7 @@ class Layout extends Component<LayoutProps> {
             ? <button disabled={tweetsFetching || tweetsFetched} onClick={this.fetchTweets}>load tweets</button>
             : <div>
                 <button onClick={this.updateFirstTweet}>update first tweet</button>
-                <ul>{tweets.map(tweet => <li onDoubleClick={_ => this.deleteTweet(tweet.id)} key={tweet.id}>{tweet.text}</li>)}</ul>
+                <ul>{tweets.map(tweet => <li onDoubleClick={() => this.deleteTweet(tweet.id)} key={tweet.id}>{tweet.text}</li>)}</ul>
             </div>
 
         return <div>
