@@ -10,7 +10,7 @@ import reducers from './reducers/index'
 const predicate = () => true // if you want to see all actions
 
 const newStore = () => {
-    if (process.env.NODE_ENV === 'development' || process.env.NODE_ENV === 'integration') {
+    if (process.env.NODE_ENV === 'development') {
         const {createLogger} = require('redux-logger')
         const { composeWithDevTools } = require('redux-devtools-extension')
         const composeEnhancers = composeWithDevTools({ predicate })
