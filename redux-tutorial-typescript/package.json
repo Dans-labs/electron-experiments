@@ -6,7 +6,7 @@
   "scripts": {
     "start": "NODE_ENV=development webpack-dev-server --hot --config webpack/dev.config.js",
     "build": "NODE_ENV=production webpack --config webpack/prod.config.js",
-    "api": "json-server --watch db.json --port 3004"
+    "mockserver": "json-server --watch db.json --port 3004"
   },
   "author": "",
   "license": "Apache-2.0",

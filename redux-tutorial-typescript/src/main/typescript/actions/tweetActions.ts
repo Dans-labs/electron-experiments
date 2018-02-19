@@ -5,7 +5,7 @@ import {baseURL} from "../lib/config"
 import {Dispatch, ReduxAction} from "../lib/redux"
 
 // With this method we can test interactions between client and a (fake) server
-// run 'npm run api' to start a JSON-based fake server
+// run 'npm run mockserver' to start a JSON-based fake server
 // then uncomment and run these methods one by one and in the browser click the button 'call /hello'
 // see also
 //   * https://github.com/typicode/json-server

@@ -30,3 +30,10 @@ dependencies. Finally execute one or more of the following commands:
     npm start           # starts the development server; go to http://localhost:8080 in your browser to see the result
     npm run build       # packages everything into a minified set of files; see the ./build folder for the result
     mvn clean install   # packages everything into a *.war file for further deployment
+
+To get the a fake server up and running for this client to communicate with, run:
+
+    npm run mockserver
+
+See also [`src/main/typescript/actions/tweetActions.ts`](src/main/typescript/actions/tweetActions.ts) on how to play
+with this fake server.
