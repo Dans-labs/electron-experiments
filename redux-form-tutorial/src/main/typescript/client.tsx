@@ -5,8 +5,15 @@ import store from "./store"
 import Header from "./components/Header"
 import DemoForm from "./components/DemoForm"
 import "../resources/css/styling"
+import UsersList from "./components/UsersList"
 
 ReactDOM.render(
-    <Provider store={store}><div><Header/><DemoForm/></div></Provider>,
+    <Provider store={store}>
+        <div>
+            <Header/>
+            <UsersList/>
+            <DemoForm/>
+        </div>
+    </Provider>,
     document.getElementById('app'),
 )
