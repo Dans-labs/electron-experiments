@@ -5,9 +5,7 @@
   "main": "src/main/typescript/client.tsx",
   "scripts": {
     "start": "NODE_ENV=development webpack-dev-server --hot --config webpack/dev.config.js",
-    "integration": "NODE_ENV=integration webpack-dev-server --hot --config webpack/dev.config.js",
-    "build": "NODE_ENV=production webpack --config webpack/prod.config.js",
-    "api": "json-server --watch db.json --port 3004"
+    "build": "NODE_ENV=production webpack --config webpack/prod.config.js"
   },
   "author": "",
   "license": "Apache-2.0",
@@ -17,19 +15,23 @@
   ],
   "dependencies": {
     "axios": "^0.17.1",
+    "email-validator": "^1.1.1",
     "monocle-ts": "^0.5.2",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
+    "redux-form": "^7.2.3",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
+    "@types/email-validator": "^1.0.6",
     "@types/react": "^16.0.36",
     "@types/react-dom": "^16.0.3",
     "@types/react-hot-loader": "^3.0.5",
     "@types/react-redux": "^5.0.14",
+    "@types/redux-form": "^7.0.14",
     "@types/redux-logger": "^3.0.5",
     "@types/redux-promise-middleware": "0.0.9",
     "@types/webpack-env": "^1.13.5",

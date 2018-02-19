@@ -63,13 +63,13 @@ class Layout extends Component<LayoutProps> {
     }
 }
 
-const mapStateToProps = (state: AppState) => {
+const mapStateToProps = ({user: {user}, tweets: {tweets, fetching, fetched, error}}: AppState) => {
     return ({
-        user: state.user.user,
-        tweets: state.tweets.tweets,
-        tweetsFetching: state.tweets.fetching,
-        tweetsFetched: state.tweets.fetched,
-        errorMsg: state.tweets.error,
+        user: user,
+        tweets: tweets,
+        tweetsFetching: fetching,
+        tweetsFetched: fetched,
+        errorMsg: error,
     })
 }
 

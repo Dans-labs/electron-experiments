@@ -1,0 +1,204 @@
+body {
+    font-family: 'Helvetica Neue', arial, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    line-height: 1.3em;
+    -webkit-font-smoothing: antialiased;
+}
+
+a {
+    text-decoration: underline;
+    color: #145;
+}
+
+p {
+    line-height: 1.6em;
+}
+
+strong {
+    color: #145;
+    font-weight: bold;
+}
+
+input, textarea, button {
+    outline: none;
+}
+
+button {
+    cursor: pointer;
+}
+
+/**/
+
+/*{
+    padding: 20px;
+}*/
+
+form {
+    border: 1px solid #eee;
+    padding: 20px;
+    border-radius: 3px;
+}
+
+form > div {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-flow: row nowrap;
+    -ms-flex-flow: row nowrap;
+    flex-flow: row nowrap;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    margin: 0;
+    padding: 10px 20px;
+}
+
+form > div.active {
+    background-color: #ee9;
+}
+
+form > div.error {
+    background-color: #e99;
+}
+
+form > div.error.active {
+    background-color: #e99;
+}
+
+form > div > label {
+    width: 7em;
+    padding: 5px;
+    font-weight: bold;
+    color: #444;
+}
+
+form > div > span {
+    white-space: nowrap;
+    color: #600;
+    font-weight: bold;
+    padding: 5px;
+    margin-left: 5px;
+}
+
+form > div > span:before {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    -webkit-text-rendering: auto;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    content: '\f06a';
+    margin-right: 5px;
+}
+
+form input, form textarea, form select {
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    padding: 5px 8px;
+    border: 1px solid #ddd;
+    border-radius: 2px;
+}
+
+form button {
+    margin: 10px;
+}
+
+form button[type='button'] {
+    white-space: nowrap;
+    display: inline-block;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 16px;
+    color: white;
+    background-image: linear-gradient(#ffffff, #d5d5d5);
+    border: 1px solid #d5d5d5;
+    color: #555;
+}
+
+form button[type='button']:visited {
+    color: white;
+}
+
+form button[type='button']:hover {
+    background-image: linear-gradient(#ffffff, #d5d5d5);
+}
+
+form button[type='button']:hover[disabled] {
+    background-image: linear-gradient(#ffffff, #d5d5d5);
+}
+
+form button[type='button']:visited {
+    color: black;
+}
+
+form button[type='button'][disabled] {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+form button[type='submit'] {
+    white-space: nowrap;
+    display: inline-block;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 16px;
+    color: white;
+    background-image: linear-gradient(#4f93ce, #285f8f);
+    border: 1px solid #285f8f;
+}
+
+form button[type='submit']:visited {
+    color: white;
+}
+
+form button[type='submit']:hover {
+    background-image: linear-gradient(#4f93ce, #285f8f);
+}
+
+form button[type='submit']:hover[disabled] {
+    background-image: linear-gradient(#4f93ce, #285f8f);
+}
+
+form button[type='submit']:visited {
+    color: black;
+}
+
+form button[type='submit'][disabled] {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+form button[type='submit']:before {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    -webkit-text-rendering: auto;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    content: '\f1d8';
+    margin-right: 5px;
+}
+
+form button.submitting {
+    cursor: wait !important;
+}
+
+form button.add:before {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    -webkit-text-rendering: auto;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    content: '\f067';
+    margin-right: 5px;
+}
