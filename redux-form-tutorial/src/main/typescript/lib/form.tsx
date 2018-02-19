@@ -2,17 +2,17 @@ import * as React from 'react'
 import {WrappedFieldInputProps} from "redux-form"
 import {BaseFieldProps, WrappedFieldProps} from "redux-form/lib/Field"
 
-type FieldProps = WrappedFieldProps & BaseFieldProps
+type FieldProps = WrappedFieldProps & BaseFieldProps & {submittingFailed?: boolean}
 type renderer = (input: WrappedFieldInputProps, label?: string, rest?: any) => JSX.Element
 
-const createRenderer = (renderer: renderer) => ({input, meta, label, ...rest}: FieldProps) => {
+const createRenderer = (renderer: renderer) => ({input, meta, label, submittingFailed, ...rest}: FieldProps) => {
     return <div className={[
-        meta.error && meta.touched ? 'error' : '',
+        meta.error ? 'error' : '',
         meta.active ? 'active' : '',
     ].join(' ')}>
         <label>{label}</label>
         {renderer(input, label, rest)}
-        {meta.error && meta.touched && <span>{meta.error}</span>}
+        {meta.error && <span>{meta.error}</span>}
     </div>
 }
 

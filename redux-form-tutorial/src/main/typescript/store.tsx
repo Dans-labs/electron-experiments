@@ -16,7 +16,7 @@ const newStore = () => {
         const composeEnhancers = composeWithDevTools({ predicate })
         return createStore(
             reducers,
-            composeEnhancers(applyMiddleware(thunkMiddleware, createLogger({ predicate }))),
+            composeEnhancers(applyMiddleware(thunkMiddleware/*, createLogger({ predicate })*/)),
         )
     }
     else

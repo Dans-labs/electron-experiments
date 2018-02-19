@@ -4,8 +4,11 @@ import {Field, FormErrors, InjectedFormProps, reduxForm} from "redux-form"
 import * as EmailValidator from 'email-validator'
 import provinces from '../constants/provinces'
 import {RenderInput, RenderSelect} from "../lib/form"
+import {Dispatch, ReduxAction} from "../util"
+import {addUser} from "../actions/formActions"
+import {connect} from "react-redux"
 
-interface DemoFormData {
+export interface DemoFormData {
     firstName?: string
     lastName?: string
     email?: string
@@ -14,6 +17,7 @@ interface DemoFormData {
 }
 
 interface DemoFormProps extends InjectedFormProps<DemoFormData, DemoFormProps> {
+    submitForm: (name: string) => ReduxAction<string>
 }
 
 const validate = (values: DemoFormData) => {
@@ -51,17 +55,20 @@ const validate = (values: DemoFormData) => {
 class DemoForm extends Component<DemoFormProps> {
     constructor(props: DemoFormProps) {
         super(props)
-        console.log(props)
     }
 
     showResults = async (values: DemoFormData) => {
         await new Promise(resolve => setTimeout(resolve, 500))
         window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`)
+
+        this.props.submitForm(`${values.firstName} ${values.lastName}`)
+
+        this.props.reset()
     }
 
     render() {
         return <form onSubmit={this.props.handleSubmit(this.showResults)}>
-            <Field name="firstName" label="First Name" component={RenderInput}/>
+            <Field name="firstName" label="First Name" submittingFailed={this.props.submitFailed} component={RenderInput}/>
             <Field name="lastName" label="Last Name" component={RenderInput}/>
             <Field name="email" label="Email" component={RenderInput}/>
             <Field name="province" label="Province" component={RenderSelect}>
@@ -75,8 +82,15 @@ class DemoForm extends Component<DemoFormProps> {
     }
 }
 
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+    submitForm: (name: string) => dispatch(addUser(name)),
+})
+
+const form = connect(null, mapDispatchToProps)(DemoForm)
+
 export default reduxForm({
     form: 'demo',
     destroyOnUnmount: false,
     validate: validate,
-})(DemoForm)
+    shouldValidate: params => params.props.submitting
+})(form)
