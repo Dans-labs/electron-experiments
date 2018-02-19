@@ -22,10 +22,7 @@ The original code (in JavaScript, see [GitHub]) was then ported to TypeScript. T
 Installation
 ------------
 
-To install this code, please make sure that `npm` and `webpack` are installed.
-
-    brew install node
-    npm install -g webpack
+To install this code, please make sure that `npm` is installed: `brew install node`.
 
 Then run `npm install` to download all
 dependencies. Finally execute one or more of the following commands:
