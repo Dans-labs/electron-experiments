@@ -90,12 +90,5 @@ const form = connect(null, mapDispatchToProps)(DemoForm)
 
 export default reduxForm({
     form: 'demo',
-    // destroyOnUnmount: true,
-    // touchOnBlur: false,
-    // touchOnChange: false,
     validate: validate,
-    // shouldValidate: params => {
-    //     console.log(params)
-    //     return true
-    // }
 })(form)
