@@ -18,6 +18,20 @@ export default combineReducers({
                             },
                         },
                     }
+                case "@@redux-form/TOUCH":
+                    const fields = action.meta.fields.map((fieldName: string) => ({
+                        [fieldName]: {
+                            ...state.fields[fieldName],
+                            changed: true,
+                        },
+                    }))
+
+                    return {
+                        ...state,
+                        fields: {
+                            ...Object.assign(state.fields, ...fields),
+                        },
+                    }
             }
             return state
         },

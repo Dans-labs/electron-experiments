@@ -8,15 +8,15 @@ type renderer = (input: WrappedFieldInputProps, label?: string, rest?: any) => J
 
 const createRenderer = (renderer: renderer) => ({input, meta, label, name, ...rest}: FieldProps) => {
     const changed = (meta as any).changed
-    const errorCondition = meta.error && changed
+    const hasError = meta.error && changed
 
     return <div className={[
-        errorCondition ? 'error' : '',
+        hasError ? 'error' : '',
         meta.active ? 'active' : '',
     ].join(' ')}>
         <label>{label}</label>
         {renderer(input, label, rest)}
-        {errorCondition && <span>{meta.error}</span>}
+        {hasError && <span>{meta.error}</span>}
     </div>
 }
 
