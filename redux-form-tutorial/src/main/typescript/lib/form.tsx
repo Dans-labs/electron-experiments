@@ -5,8 +5,9 @@ import {BaseFieldProps, WrappedFieldProps} from "redux-form/lib/Field"
 type FieldProps = WrappedFieldProps & BaseFieldProps
 type renderer = (input: WrappedFieldInputProps, label?: string, rest?: any) => JSX.Element
 
-const createRenderer = (renderer: renderer) => ({input, meta, label, ...rest}: FieldProps) => {
-    const errorCondition = meta.error && meta.touched
+const createRenderer = (renderer: renderer) => ({input, meta, label, name, ...rest}: FieldProps) => {
+    const changed = (meta as any).changed
+    const errorCondition = meta.error && changed
 
     return <div className={[
         errorCondition ? 'error' : '',
