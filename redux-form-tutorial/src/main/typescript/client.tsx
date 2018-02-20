@@ -3,16 +3,14 @@ import * as ReactDOM from "react-dom"
 import {Provider} from "react-redux"
 import store from "./store"
 import Header from "./components/Header"
-import DemoForm from "./components/DemoForm"
+import {SimpleForm} from "./components/SimpleForm/SimpleForm"
 import "../resources/css/styling"
-import UsersList from "./components/UsersList"
 
 ReactDOM.render(
     <Provider store={store}>
         <div>
             <Header/>
-            <UsersList/>
-            <DemoForm/>
+            <SimpleForm/>
         </div>
     </Provider>,
     document.getElementById('app'),

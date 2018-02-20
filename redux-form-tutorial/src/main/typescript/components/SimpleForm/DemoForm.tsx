@@ -2,10 +2,10 @@ import * as React from 'react'
 import {Component} from 'react'
 import {Field, FormErrors, InjectedFormProps, reduxForm} from "redux-form"
 import * as EmailValidator from 'email-validator'
-import provinces from '../constants/provinces'
-import {RenderInput, RenderSelect} from "../lib/form"
-import {Dispatch, ReduxAction} from "../util"
-import {addUser} from "../actions/formActions"
+import provinces from '../../constants/provinces'
+import {RenderInput, RenderSelect} from "../../lib/form"
+import {Dispatch, ReduxAction} from "../../util"
+import {addUser} from "../../actions/formActions"
 import {connect} from "react-redux"
 
 export interface DemoFormData {
@@ -68,7 +68,7 @@ class DemoForm extends Component<DemoFormProps> {
 
     render() {
         return <form onSubmit={this.props.handleSubmit(this.showResults)}>
-            <Field name="firstName" label="First Name" submittingFailed={this.props.submitFailed} component={RenderInput}/>
+            <Field name="firstName" label="First Name" component={RenderInput}/>
             <Field name="lastName" label="Last Name" component={RenderInput}/>
             <Field name="email" label="Email" component={RenderInput}/>
             <Field name="province" label="Province" component={RenderSelect}>
@@ -90,7 +90,12 @@ const form = connect(null, mapDispatchToProps)(DemoForm)
 
 export default reduxForm({
     form: 'demo',
-    destroyOnUnmount: false,
+    // destroyOnUnmount: true,
+    // touchOnBlur: false,
+    // touchOnChange: false,
     validate: validate,
-    shouldValidate: params => params.props.submitting
+    // shouldValidate: params => {
+    //     console.log(params)
+    //     return true
+    // }
 })(form)
