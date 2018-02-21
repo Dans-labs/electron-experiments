@@ -53,14 +53,7 @@ const validate = (values: DemoFormData) => {
         errors.number = "This should be a numeric value"
     }
 
-    if (!values.sex) {
-        errors.sex = "Required"
-    }
-
-    if (!values.birthday) {
-        errors.birthday = "Required"
-    }
-    else if (moment(values.birthday, "DD-MM-YYYY").isBefore(moment())) {
+    if (values.birthday && moment(values.birthday, "DD-MM-YYYY").isBefore(moment())) {
         errors.birthday = "This date should be in the future"
     }
 
@@ -87,21 +80,21 @@ class DemoForm extends Component<DemoFormProps> {
 
     render() {
         return <form onSubmit={this.props.handleSubmit(this.showResults)}>
-            <Field name="firstName" label="First Name" component={RenderInput}/>
-            <Field name="lastName" label="Last Name" component={RenderInput}/>
-            <Field name="email" label="Email" component={RenderInput}/>
-            <Field name="province" label="Province" component={RenderSelect}>
+            <Field name="firstName" label="First Name" component={RenderInput} required/>
+            <Field name="lastName" label="Last Name" component={RenderInput} required/>
+            <Field name="email" label="Email" component={RenderInput} required/>
+            <Field name="province" label="Province" component={RenderSelect} required>
                 <option/>
                 {provinces.map(province => <option key={province} value={province}>{province}</option>)}
             </Field>
-            <Field name="number" label="Favorite Number" component={RenderInput}/>
+            <Field name="number" label="Favorite Number" component={RenderInput} required/>
             <Field name="sex" label="Sex" component={RenderRadio} choices={[
                 {title: "male", value: "Male"},
                 {title: "female", value: "Female"},
                 {title: "no", value: "No, thank you"},
             ]}/>
             <Field name="birthday" label="Birthday" component={RenderDatePicker} dateFormat="DD-MM-YYYY" minDate={moment()}/>
-            <Field name="accept" label="" component={RenderCheckbox} text="I accept everything"/>
+            <Field name="accept" label="Acceptance" component={RenderCheckbox} text="I accept everything" required/>
 
             <button type="submit" disabled={this.props.submitting}>Submit</button>
         </form>
