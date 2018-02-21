@@ -117,11 +117,11 @@ form > div > #radio-choices > #radio-choice {
     display:block;
 }
 
-form button {
+/*form button {
     margin: 10px;
-}
+}*/
 
-form button[type='button'] {
+/*form button[type='button'] {
     white-space: nowrap;
     display: inline-block;
     border-radius: 5px;
@@ -152,7 +152,7 @@ form button[type='button']:visited {
 form button[type='button'][disabled] {
     opacity: 0.6;
     cursor: not-allowed;
-}
+}*/
 
 form button[type='submit'] {
     white-space: nowrap;
