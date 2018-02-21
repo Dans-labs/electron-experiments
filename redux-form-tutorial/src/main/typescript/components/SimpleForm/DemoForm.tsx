@@ -95,7 +95,7 @@ class DemoForm extends Component<DemoFormProps> {
                 {title: "female", value: "Female"},
                 {title: "no", value: "No, thank you"},
             ]}/>
-            <Field name="birthday" label="Birthday" component={RenderDatePicker} minDate={moment()}/>
+            <Field name="birthday" label="Birthday" component={RenderDatePicker} dateFormat="DD-MM-YYYY" minDate={moment()}/>
 
             <button type="submit" disabled={this.props.submitting}>Submit</button>
         </form>
