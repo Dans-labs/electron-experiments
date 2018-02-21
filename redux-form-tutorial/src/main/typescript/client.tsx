@@ -5,7 +5,6 @@ import store from "./store"
 import Header from "./components/Header"
 import {SimpleForm} from "./components/SimpleForm/SimpleForm"
 import "../resources/css/styling"
-// import 'react-datepicker/dist/react-datepicker.css';
 import 'react-datepicker/dist/react-datepicker-cssmodules.css'
 
 ReactDOM.render(

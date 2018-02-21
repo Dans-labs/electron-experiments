@@ -60,7 +60,7 @@ interface CheckboxProps {
 }
 
 export const RenderCheckbox = createRenderer<CheckboxProps>((input, label, {text}: CheckboxProps) =>
-    <label id="radio choice"><input {...input} type="checkbox"/>{` ${text}`}</label>,
+    <label id="radio-choices"><input {...input} type="checkbox"/>{` ${text}`}</label>,
 )
 
 interface DatePickerProps {
@@ -73,22 +73,24 @@ interface DatePickerProps {
 // This date picker has very specific settings. Can't we use the original props from DatePicker?
 // Or should we add more properties to our own DatePickerProps?
 export const RenderDatePicker = createRenderer<DatePickerProps>((input, label, {minDate, maxDate, dateFormat}) =>
-    <DatePicker {...input}
-                dateFormat={dateFormat}
-                minDate={minDate}
-                maxDate={maxDate}
+    <div id="radio-choices">
+        <DatePicker {...input}
+                    dateFormat={dateFormat}
+                    minDate={minDate}
+                    maxDate={maxDate}
 
-                todayButton="Today"
-                disabledKeyboardNavigation
-                isClearable
+                    todayButton="Today"
+                    disabledKeyboardNavigation
+                    isClearable
 
-                showYearDropdown
-                scrollableYearDropdown
-                yearDropdownItemNumber={15}
+                    showYearDropdown
+                    scrollableYearDropdown
+                    yearDropdownItemNumber={15}
 
-                placeholderText={label}
-                selected={input.value ? moment(input.value, dateFormat) : null}
-                onChange={date => input.onChange(date ? moment(date).format(dateFormat) : "")}>
-        <div style={{color: 'red'}}>This date must be in the future!</div>
-    </DatePicker>,
+                    placeholderText={label}
+                    selected={input.value ? moment(input.value, dateFormat) : null}
+                    onChange={date => input.onChange(date ? moment(date).format(dateFormat) : "")}>
+            <div style={{color: 'red'}}>This date must be in the future!</div>
+        </DatePicker>
+    </div>,
 )
