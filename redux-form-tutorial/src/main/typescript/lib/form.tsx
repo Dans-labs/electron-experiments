@@ -7,20 +7,21 @@ import {Moment} from "moment"
 import {Simulate} from "react-dom/test-utils"
 import input = Simulate.input
 
-type FieldProps = WrappedFieldProps & BaseFieldProps
+type FieldProps = WrappedFieldProps & BaseFieldProps & { required?: boolean }
 type renderer = (input: WrappedFieldInputProps, label?: string, rest?: any) => JSX.Element
 
 function createRenderer<T>(renderer: renderer) {
     return (props: FieldProps & T) => {
-        const {input, meta, label} = props
+        const {input, meta, label, required} = props
         const changed = (meta as any).changed
         const hasError = meta.error && changed
+        const requiredText = required ? <b style={{color: 'red'}}> *</b> : ""
 
         return <div className={[
             hasError ? 'error' : '',
             meta.active ? 'active' : '',
         ].join(' ')}>
-            <label>{label}</label>
+            <label>{label}{requiredText}</label>
             {renderer(input, label, props)}
             {hasError && <span>{meta.error}</span>}
         </div>
