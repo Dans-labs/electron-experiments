@@ -1,6 +1,6 @@
 import * as React from 'react'
 import {Component} from 'react'
-import {Field, InjectedFormProps, reduxForm} from "redux-form"
+import {Field, InjectedFormProps, reduxForm, SubmissionError} from "redux-form"
 import * as EmailValidator from 'email-validator'
 import provinces from '../../constants/provinces'
 import {RenderCheckbox, RenderComposed, RenderDatePicker, RenderInput, RenderRadio, RenderSelect} from "../../lib/form"
@@ -45,12 +45,25 @@ class DemoForm extends Component<DemoFormProps> {
     }
 
     showResults = async (values: DemoFormData) => {
+        // simulate web request
         await new Promise(resolve => setTimeout(resolve, 500))
+
+        // simulate submit validation errors from server
+        const valid = Math.random() > 0.5
+        if (!valid) {
+            throw new SubmissionError({
+                firstName: "Random submit error on first name",
+                province: "Random submit error on province",
+                _error: "Submittion failed due to random error",
+            })
+        }
+
         window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`)
 
         this.props.submitForm(`${values.firstName} ${values.lastName}`)
 
-        this.props.reset()
+        // reset commented out to make testing easier
+        // this.props.reset()
     }
 
     render() {
@@ -118,6 +131,8 @@ class DemoForm extends Component<DemoFormProps> {
                    text="I accept everything"
                    required
                    validate={[accept]}/>
+
+            {this.props.error && <span>{this.props.error}<br/></span>}
 
             <button type="submit" disabled={this.props.submitting}>Submit</button>
         </form>
