@@ -3,7 +3,7 @@ import {Component} from 'react'
 import {Field, FormErrors, InjectedFormProps, reduxForm} from "redux-form"
 import * as EmailValidator from 'email-validator'
 import provinces from '../../constants/provinces'
-import {RenderCheckbox, RenderDatePicker, RenderInput, RenderRadio, RenderSelect} from "../../lib/form"
+import {RenderCheckbox, RenderComposed, RenderDatePicker, RenderInput, RenderRadio, RenderSelect} from "../../lib/form"
 import {Dispatch, ReduxAction} from "../../util"
 import {addUser} from "../../actions/formActions"
 import {connect} from "react-redux"
@@ -17,7 +17,10 @@ export interface DemoFormData {
     number?: string
     sex?: string
     birthday?: string
-    accept: string
+    coordinateX?: string
+    coordinateY?: string
+    coordinateZ?: string
+    accept: boolean
 }
 
 interface DemoFormProps extends InjectedFormProps<DemoFormData, DemoFormProps> {
@@ -53,7 +56,7 @@ const validate = (values: DemoFormData) => {
         errors.number = "This should be a numeric value"
     }
 
-    if (values.birthday && moment(values.birthday, "DD-MM-YYYY").isBefore(moment())) {
+    if (values.birthday && !moment(values.birthday, "DD-MM-YYYY").isSameOrAfter(moment())) {
         errors.birthday = "This date should be in the future"
     }
 
@@ -93,7 +96,13 @@ class DemoForm extends Component<DemoFormProps> {
                 {title: "female", value: "Female"},
                 {title: "no", value: "No, thank you"},
             ]}/>
-            <Field name="birthday" label="Birthday" component={RenderDatePicker} dateFormat="DD-MM-YYYY" minDate={moment()}/>
+            <Field name="birthday" label="Birthday" component={RenderDatePicker} dateFormat="DD-MM-YYYY"
+                   minDate={moment()}/>
+            <Field name="coordinate" label="Coordinate" component={RenderComposed}>
+                <Field name="coordinateX" label="X  " component={RenderInput}/>
+                <Field name="coordinateY" label="Y  " component={RenderInput}/>
+                <Field name="coordinateZ" label="Z  " component={RenderInput}/>
+            </Field>
             <Field name="accept" label="Acceptance" component={RenderCheckbox} text="I accept everything" required/>
 
             <button type="submit" disabled={this.props.submitting}>Submit</button>

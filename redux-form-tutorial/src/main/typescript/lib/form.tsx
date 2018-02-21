@@ -94,3 +94,5 @@ export const RenderDatePicker = createRenderer<DatePickerProps>((input, label, {
         </DatePicker>
     </div>,
 )
+
+export const RenderComposed = createRenderer((input, label, {children}) => <div id="radio-choices">{children}</div>)
