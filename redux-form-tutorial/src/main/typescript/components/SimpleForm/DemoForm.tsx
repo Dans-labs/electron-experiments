@@ -9,6 +9,18 @@ import {addUser} from "../../actions/formActions"
 import {connect} from "react-redux"
 import * as moment from "moment"
 
+const isRequired = (errorText: string) => (value?: any) => value ? undefined : errorText
+const required = isRequired("Required")
+const accept = isRequired("You need to check this box before submitting!")
+
+const email = (value?: string) => value && EmailValidator.validate(value) ? undefined : "Invalid email address"
+
+const number = (value?: string) => value && Number(value) ? undefined : "This should be a numeric value"
+const minValue = (min: number) => (value?: number) => value && value >= min ? undefined : `Must be at least ${min}`
+const min0 = minValue(0)
+
+const dateAfterNow = (format: string) => (value?: string) => !value || moment(value, format).isSameOrAfter(moment()) ? undefined : "This date should be in the future"
+
 export interface DemoFormData {
     firstName?: string
     lastName?: string
@@ -23,24 +35,14 @@ export interface DemoFormData {
     accept: boolean
 }
 
-interface DemoFormProps extends InjectedFormProps<DemoFormData, DemoFormProps> {
+interface DemoFormProps {
     submitForm: (name: string) => ReduxAction<string>
 }
 
-const isRequired = (errorText: string) => (value?: any) => value ? undefined : errorText
-const required = isRequired("Required")
-const accept = isRequired("You need to check this box before submitting!")
+type AllDemoFormProps = DemoFormProps & InjectedFormProps<DemoFormData>
 
-const email = (value?: string) => value && EmailValidator.validate(value) ? undefined : "Invalid email address"
-
-const number = (value?: string) => value && Number(value) ? undefined : "This should be a numeric value"
-const minValue = (min: number) => (value?: number) => value && value >= min ? undefined : `Must be at least ${min}`
-const min0 = minValue(0)
-
-const dateAfterNow = (format: string) => (value?: string) => !value || moment(value, format).isSameOrAfter(moment()) ? undefined : "This date should be in the future"
-
-class DemoForm extends Component<DemoFormProps> {
-    constructor(props: DemoFormProps) {
+class DemoForm extends Component<AllDemoFormProps> {
+    constructor(props: AllDemoFormProps) {
         super(props)
     }
 
@@ -143,8 +145,5 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
     submitForm: (name: string) => dispatch(addUser(name)),
 })
 
-const form = connect(null, mapDispatchToProps)(DemoForm)
-
-export default reduxForm({
-    form: 'demo',
-})(form)
+const form = reduxForm<DemoFormData>({ form: 'demo' })(DemoForm)
+export default connect<{}>(null, mapDispatchToProps)(form)
