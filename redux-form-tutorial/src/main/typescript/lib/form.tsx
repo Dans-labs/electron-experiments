@@ -11,7 +11,7 @@ import input = Simulate.input
 type FieldProps = WrappedFieldProps & BaseFieldProps
 type renderer = (input: WrappedFieldInputProps, label?: string, rest?: any) => JSX.Element
 
-function createRenderer <T> (renderer: renderer) {
+function createRenderer<T>(renderer: renderer) {
     return (props: FieldProps & T) => {
         const {input, meta, label} = props
         const changed = (meta as any).changed
@@ -41,32 +41,19 @@ interface RadioProps {
     choices: RadioChoice[]
 }
 
-export class RenderRadio extends Component<FieldProps & RadioProps> {
-    constructor(props: FieldProps & RadioProps) {
-        super(props)
-    }
-
-    render() {
-        const {input, label, meta, choices} = this.props
-        const hasError = meta.touched && meta.error
-
-        return <div className={hasError ? 'error' : ''}>
-            <label>{label}</label>
-            <div id="radio-choices">
-                {choices.map(({title, value}) => {
-                    return <label key={title} id="radio-choice">
-                        <input type="radio"
-                               {...input}
-                               value={title}
-                        />
-                        {` ${value}`}
-                    </label>
-                })}
-            </div>
-            {hasError && <span className="error">{meta.error}</span>}
-        </div>
-    }
-}
+export const RenderRadio = createRenderer<RadioProps>((input, label, {choices}: {choices: RadioChoice[]}) =>
+    <div id="radio-choices">
+        {choices.map(({title, value}) => {
+            return <label key={title} id="radio-choice">
+                <input {...input}
+                       type="radio"
+                       value={title}
+                />
+                {` ${value}`}
+            </label>
+        })}
+    </div>
+)
 
 interface DatePickerProps {
     dateFormat: string
@@ -74,23 +61,23 @@ interface DatePickerProps {
     maxDate?: Moment
 }
 
-export const RenderDatePicker = createRenderer<DatePickerProps>((input, label, {minDate, maxDate, dateFormat}) => {
-    return <DatePicker {...input}
-                       dateFormat={dateFormat}
-                       minDate={minDate}
-                       maxDate={maxDate}
+export const RenderDatePicker = createRenderer<DatePickerProps>((input, label, {minDate, maxDate, dateFormat}) =>
+    <DatePicker {...input}
+                dateFormat={dateFormat}
+                minDate={minDate}
+                maxDate={maxDate}
 
-                       todayButton="Today"
-                       disabledKeyboardNavigation
-                       isClearable
+                todayButton="Today"
+                disabledKeyboardNavigation
+                isClearable
 
-                       showYearDropdown
-                       scrollableYearDropdown
-                       yearDropdownItemNumber={15}
+                showYearDropdown
+                scrollableYearDropdown
+                yearDropdownItemNumber={15}
 
-                       placeholderText={label}
-                       selected={input.value ? moment(input.value, dateFormat) : null}
-                       onChange={date => input.onChange(date ? moment(date).format(dateFormat) : "")}>
+                placeholderText={label}
+                selected={input.value ? moment(input.value, dateFormat) : null}
+                onChange={date => input.onChange(date ? moment(date).format(dateFormat) : "")}>
         <div style={{color: 'red'}}>This date must be in the future!</div>
-    </DatePicker>
-})
+    </DatePicker>,
+)
