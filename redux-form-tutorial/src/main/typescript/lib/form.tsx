@@ -42,16 +42,24 @@ interface RadioProps {
 
 export const RenderRadio = createRenderer<RadioProps>((input, label, {choices}: RadioProps) =>
     <div id="radio-choices">
-        {choices.map(({title, value}) => {
-            return <label key={title} id="radio-choice">
+        {choices.map(({title, value}) =>
+            <label key={title} id="radio-choice">
                 <input {...input}
                        type="radio"
                        value={title}
                 />
                 {` ${value}`}
-            </label>
-        })}
-    </div>
+            </label>,
+        )}
+    </div>,
+)
+
+interface CheckboxProps {
+    text: string
+}
+
+export const RenderCheckbox = createRenderer<CheckboxProps>((input, label, {text}: CheckboxProps) =>
+    <label id="radio choice"><input {...input} type="checkbox"/>{` ${text}`}</label>,
 )
 
 interface DatePickerProps {
