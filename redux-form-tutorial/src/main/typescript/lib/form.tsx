@@ -1,5 +1,4 @@
 import * as React from 'react'
-import {Component} from 'react'
 import {WrappedFieldInputProps} from "redux-form"
 import {BaseFieldProps, WrappedFieldProps} from "redux-form/lib/Field"
 import DatePicker from 'react-datepicker'
@@ -41,7 +40,7 @@ interface RadioProps {
     choices: RadioChoice[]
 }
 
-export const RenderRadio = createRenderer<RadioProps>((input, label, {choices}: {choices: RadioChoice[]}) =>
+export const RenderRadio = createRenderer<RadioProps>((input, label, {choices}: RadioProps) =>
     <div id="radio-choices">
         {choices.map(({title, value}) => {
             return <label key={title} id="radio-choice">
@@ -61,6 +60,9 @@ interface DatePickerProps {
     maxDate?: Moment
 }
 
+// Note to future me:
+// This date picker has very specific settings. Can't we use the original props from DatePicker?
+// Or should we add more properties to our own DatePickerProps?
 export const RenderDatePicker = createRenderer<DatePickerProps>((input, label, {minDate, maxDate, dateFormat}) =>
     <DatePicker {...input}
                 dateFormat={dateFormat}
