@@ -3,10 +3,11 @@ import {Component} from 'react'
 import {Field, FormErrors, InjectedFormProps, reduxForm} from "redux-form"
 import * as EmailValidator from 'email-validator'
 import provinces from '../../constants/provinces'
-import {RenderInput, RenderRadio, RenderSelect} from "../../lib/form"
+import {RenderDatePicker, RenderInput, RenderRadio, RenderSelect} from "../../lib/form"
 import {Dispatch, ReduxAction} from "../../util"
 import {addUser} from "../../actions/formActions"
 import {connect} from "react-redux"
+import * as moment from "moment"
 
 export interface DemoFormData {
     firstName?: string
@@ -15,6 +16,7 @@ export interface DemoFormData {
     province?: string
     number?: string
     sex?: string
+    birthday?: string
 }
 
 interface DemoFormProps extends InjectedFormProps<DemoFormData, DemoFormProps> {
@@ -54,6 +56,13 @@ const validate = (values: DemoFormData) => {
         errors.sex = "Required"
     }
 
+    if (!values.birthday) {
+        errors.birthday = "Required"
+    }
+    else if (moment(values.birthday, "DD-MM-YYYY").isBefore(moment())) {
+        errors.birthday = "This date should be in the future"
+    }
+
     return errors
 }
 
@@ -86,6 +95,7 @@ class DemoForm extends Component<DemoFormProps> {
                 {title: "female", value: "Female"},
                 {title: "no", value: "No, thank you"},
             ]}/>
+            <Field name="birthday" label="Birthday" component={RenderDatePicker} minDate={moment()}/>
 
             <button type="submit" disabled={this.props.submitting}>Submit</button>
         </form>
