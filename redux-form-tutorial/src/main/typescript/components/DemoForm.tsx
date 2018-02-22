@@ -2,10 +2,10 @@ import * as React from 'react'
 import {Component} from 'react'
 import {Field, InjectedFormProps, reduxForm, SubmissionError} from "redux-form"
 import * as EmailValidator from 'email-validator'
-import provinces from '../../constants/provinces'
-import {RenderCheckbox, RenderComposed, RenderDatePicker, RenderInput, RenderRadio, RenderSelect} from "../../lib/form"
-import {Dispatch, ReduxAction} from "../../util"
-import {addUser} from "../../actions/formActions"
+import provinces from '../constants/provinces'
+import {RenderCheckbox, RenderComposed, RenderDatePicker, RenderInput, RenderRadio, RenderSelect} from "../lib/form"
+import {Dispatch, ReduxAction} from "../util"
+import {addUser} from "../actions/formActions"
 import {connect} from "react-redux"
 import * as moment from "moment"
 
@@ -21,7 +21,7 @@ const min0 = minValue(0)
 
 const dateAfterNow = (format: string) => (value?: string) => !value || moment(value, format).isSameOrAfter(moment()) ? undefined : "This date should be in the future"
 
-export interface DemoFormData {
+interface DemoFormData {
     firstName?: string
     lastName?: string
     email?: string
