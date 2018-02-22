@@ -1,9 +1,9 @@
 import * as React from 'react'
 import {Component} from 'react'
-import {AppState, User} from "../../model/AppState"
+import {AppState, User} from "../model/AppState"
 import {connect} from "react-redux"
-import {Dispatch, ReduxAction} from "../../util"
-import {removeUser} from "../../actions/formActions"
+import {Dispatch, ReduxAction} from "../util"
+import {removeUser} from "../actions/formActions"
 
 interface UsersListProps {
     users: User[],
