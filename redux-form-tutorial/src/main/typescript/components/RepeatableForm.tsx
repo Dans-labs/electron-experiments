@@ -1,16 +1,6 @@
 import * as React from 'react'
 import {Component} from 'react'
-import {
-    BaseFieldArrayProps,
-    BaseFieldProps,
-    Field,
-    FieldArray,
-    FormErrors,
-    InjectedFormProps,
-    reduxForm,
-    WrappedFieldArrayProps,
-    WrappedFieldProps,
-} from "redux-form"
+import {Field, FieldArray, FormErrors, InjectedFormProps, reduxForm} from "redux-form"
 import {Dispatch} from "../util"
 import {AppState} from "../model/AppState"
 import {connect} from "react-redux"
@@ -72,68 +62,17 @@ interface RepeatableFormProps {
 
 type AllRepeatableFormProps = RepeatableFormProps & InjectedFormProps<RepeatableFormData>
 
-// temp stuff!
-type FieldProps = WrappedFieldProps & BaseFieldProps & { type?: string }
-
-type FieldArrayProps = WrappedFieldArrayProps<MemberData> & BaseFieldArrayProps<MemberData>
-
-const RenderField = ({input, label, type, meta: {touched, error, active}}: FieldProps) => {
-    const hasError = touched && error
-
-    return (
-        <div className={[
-            hasError ? 'error' : '',
-            active ? 'active' : '',
-        ].join(' ')}>
-            <label>{label}</label>
-            <input {...input} type={type} placeholder={label}/>
-            {hasError && <span>{error}</span>}
-        </div>
-    )
-}
-
-// TODO we can't provide the type here. Awaiting https://github.com/DefinitelyTyped/DefinitelyTyped/issues/23592
-// to be resolved. Once changed, turn '"noImplicitAny": true' in tsconfig.json back on!
-const RenderMembers = (props/*: FieldArrayProps*/) => {
-    // TODO move destructuring to lambda argument once typing issues are resolved
-    const {fields, meta} = props
-
-    // TODO submitFailed is not part of the type definition of FieldArrayProps, but it actually is there,
-    // according to the JavaScript implementation.
-    // See also https://github.com/DefinitelyTyped/DefinitelyTyped/issues/23842
-    const hasError = meta.submitFailed && meta.error
-
-    return (
-        <ul className={[
-            hasError ? 'error' : '',
-            meta.active ? 'active' : '',
-        ].join(' ')}>
-            <button type="button" onClick={() => fields.push({})}>Add Member</button>
-            {hasError && <span>{meta.error}</span>}
-            {fields.map((member, index) => {
-                return <div key={index}>
-                    <button
-                        type="button"
-                        title="Remove Member"
-                        onClick={() => fields.remove(index)}>Remove Member #{index + 1}</button>
-                    <h4>Member #{index + 1}</h4>
-                    <Field
-                        name={`${member}.firstName`}
-                        type="text"
-                        component={RenderField}
-                        label="First Name"
-                    />
-                    <Field
-                        name={`${member}.lastName`}
-                        type="text"
-                        component={RenderField}
-                        label="Last Name"
-                    />
-                </div>
-            })}
-        </ul>
-    )
-}
+const RepeatableMember = createRepeatedRender((name, index, fields) => {
+    return <div key={index}>
+        <button
+            type="button"
+            title="Remove Member"
+            onClick={() => fields.remove(index)}>Remove Member #{index + 1}</button>
+        <h4>Member #{index + 1}</h4>
+        <Field name={`${name}.firstName`} label="First Name" component={RenderInput}/>
+        <Field name={`${name}.lastName`} label="Last Name" component={RenderInput}/>
+    </div>
+})
 
 class RepeatableForm extends Component<AllRepeatableFormProps> {
     constructor(props: AllRepeatableFormProps) {
@@ -147,8 +86,8 @@ class RepeatableForm extends Component<AllRepeatableFormProps> {
 
     render() {
         return <form onSubmit={this.props.handleSubmit(this.submitForm)}>
-            <Field name="clubName" label="Club Name" type="text" component={RenderField}/>
-            <FieldArray name="members" component={RenderMembers}/>
+            <Field name="clubName" label="Club Name" component={RenderInput}/>
+            <FieldArray name="members" label="Add Member" component={RepeatableMember}/>
 
             <button type="submit" disabled={this.props.submitting}>Submit</button>
         </form>

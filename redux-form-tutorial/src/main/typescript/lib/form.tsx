@@ -1,11 +1,9 @@
 import * as React from 'react'
-import {WrappedFieldInputProps} from "redux-form"
+import {BaseFieldArrayProps, FieldsProps, WrappedFieldArrayProps, WrappedFieldInputProps} from "redux-form"
 import {BaseFieldProps, WrappedFieldProps} from "redux-form/lib/Field"
 import DatePicker from 'react-datepicker'
 import * as moment from "moment"
 import {Moment} from "moment"
-import {Simulate} from "react-dom/test-utils"
-import input = Simulate.input
 
 type FieldProps = WrappedFieldProps & BaseFieldProps & { required?: boolean }
 type renderer = (input: WrappedFieldInputProps, label?: string, rest?: any) => JSX.Element
@@ -96,3 +94,31 @@ export const RenderDatePicker = createRenderer<DatePickerProps>((input, label, {
 )
 
 export const RenderComposed = createRenderer((input, label, {children}) => <div id="radio-choices">{children}</div>)
+
+// repeatable elements
+type FieldArrayProps<Data> = WrappedFieldArrayProps<Data>
+    & BaseFieldArrayProps<Data>
+// & { contentF: (name: string, index: number) => JSX.Element }
+type arrayRenderer<Data> = (name: string, index: number, field: FieldsProps<Data>) => JSX.Element
+
+export function createRepeatedRender<Data, T>(renderer: arrayRenderer<Data>) {
+    // TODO we can't provide the type here. Awaiting https://github.com/DefinitelyTyped/DefinitelyTyped/issues/23592
+    // to be resolved. Once changed, turn '"noImplicitAny": true' in tsconfig.json back on!
+    return (props/*: FieldArrayProps<Data> & T*/) => {
+        const {fields, meta, label, contentF} = props
+
+        // TODO submitFailed is not part of the type definition of FieldArrayProps, but it actually is there,
+        // according to the JavaScript implementation.
+        // See also https://github.com/DefinitelyTyped/DefinitelyTyped/issues/23842
+        const hasError = meta.error && meta.submitFailed
+
+        return <div className={[
+            hasError ? 'error' : '',
+            meta.active ? 'active' : '',
+        ].join(' ')}>
+            <button type="button" onClick={() => fields.push({})}>{label}</button>
+            {hasError && <span>{meta.error}</span>}
+            {fields.map(renderer)}
+        </div>
+    }
+}
