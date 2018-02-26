@@ -16,7 +16,6 @@
   "dependencies": {
     "axios": "^0.17.1",
     "email-validator": "^1.1.1",
-    "lodash": "^4.17.5",
     "moment": "^2.20.1",
     "monocle-ts": "^0.5.2",
     "react": "^16.2.0",
@@ -30,7 +29,6 @@
     "uuid": "^3.2.1"
   },
   "devDependencies": {
-    "@types/lodash": "^4.14.104",
     "@types/react": "^16.0.36",
     "@types/react-datepicker": "^1.1.2",
     "@types/react-dom": "^16.0.3",
