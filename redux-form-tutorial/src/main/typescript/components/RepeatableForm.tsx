@@ -4,7 +4,6 @@ import {Field, FieldArray, FormErrors, InjectedFormProps, reduxForm} from "redux
 import {Dispatch} from "../util"
 import {AppState} from "../model/AppState"
 import {connect} from "react-redux"
-import {isEmpty} from "lodash"
 
 const validate = (values: RepeatableFormData) => {
     // TODO this any is just to keep the typechecker happy. Should actually be 'string' instead.
@@ -21,7 +20,7 @@ const validate = (values: RepeatableFormData) => {
     else {
         // TODO type any is not correct, but for now it makes sure that everything compiles...
         // See also https://github.com/DefinitelyTyped/DefinitelyTyped/issues/23922, remark 2
-        const result: any = values.members.map(validateMember).filter(value => !isEmpty(value))
+        const result: any = values.members.map(validateMember)
         if (result.length) {
             errors.members = result
         }
