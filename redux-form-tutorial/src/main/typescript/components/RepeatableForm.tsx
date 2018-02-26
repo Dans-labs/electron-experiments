@@ -4,6 +4,7 @@ import {Field, FieldArray, FormErrors, InjectedFormProps, reduxForm} from "redux
 import {Dispatch} from "../util"
 import {AppState} from "../model/AppState"
 import {connect} from "react-redux"
+import {createRepeatedRender, RenderInput} from "../lib/form"
 
 const validate = (values: RepeatableFormData) => {
     // TODO this any is just to keep the typechecker happy. Should actually be 'string' instead.
@@ -97,5 +98,5 @@ const mapStateToProps = (state: AppState) => ({})
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({})
 
-const form = reduxForm<RepeatableFormData>({form: 'repeatable-form', validate})(RepeatableForm)
+const form = reduxForm<RepeatableFormData>({form: 'repeatableform', validate})(RepeatableForm)
 export default connect<{}>(mapStateToProps, mapDispatchToProps)(form)
