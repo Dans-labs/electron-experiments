@@ -1,50 +1,14 @@
 import * as React from 'react'
 import {Component} from 'react'
-import {Field, FieldArray, FormErrors, InjectedFormProps, reduxForm} from "redux-form"
+import {Field, FieldArray, InjectedFormProps, reduxForm} from "redux-form"
 import {Dispatch} from "../util"
 import {AppState} from "../model/AppState"
 import {connect} from "react-redux"
 import {createRepeatedRender, RenderInput} from "../lib/form"
 
-const validate = (values: RepeatableFormData) => {
-    // TODO this any is just to keep the typechecker happy. Should actually be 'string' instead.
-    // See also https://github.com/DefinitelyTyped/DefinitelyTyped/issues/23922, remark 1
-    const errors: FormErrors<RepeatableFormData, any> = {} // TODO deal with this any?
-
-    if (!values.clubName) {
-        errors.clubName = "Required"
-    }
-
-    if (!values.members || !values.members.length) {
-        errors.members = {_error: "At least one member must be entered"}
-    }
-    else {
-        // TODO type any is not correct, but for now it makes sure that everything compiles...
-        // See also https://github.com/DefinitelyTyped/DefinitelyTyped/issues/23922, remark 2
-        const result: any = values.members.map(validateMember)
-        if (result.length) {
-            errors.members = result
-        }
-    }
-
-    console.log("validation errors", errors)
-
-    return errors
-}
-
-const validateMember = (values: MemberData) => {
-    const errors: FormErrors<MemberData> = {}
-
-    if (!values.firstName) {
-        errors.firstName = "Required"
-    }
-
-    if (!values.lastName) {
-        errors.lastName = "Required"
-    }
-
-    return errors
-}
+const isRequired = (errorText: string) => (value?: any) => value ? undefined : errorText
+const required = isRequired("Required")
+const nonEmptyList = (values?: any[]) => values && values.length ? undefined : "At least one element must be entered"
 
 interface MemberData {
     firstName?: string
@@ -69,8 +33,8 @@ const RepeatableMember = createRepeatedRender((name, index, fields) => {
             title="Remove Member"
             onClick={() => fields.remove(index)}>Remove Member #{index + 1}</button>
         <h4>Member #{index + 1}</h4>
-        <Field name={`${name}.firstName`} label="First Name" component={RenderInput}/>
-        <Field name={`${name}.lastName`} label="Last Name" component={RenderInput}/>
+        <Field name={`${name}.firstName`} label="First Name" component={RenderInput} validate={[required]}/>
+        <Field name={`${name}.lastName`} label="Last Name" component={RenderInput} validate={[required]}/>
     </div>
 })
 
@@ -86,8 +50,8 @@ class RepeatableForm extends Component<AllRepeatableFormProps> {
 
     render() {
         return <form onSubmit={this.props.handleSubmit(this.submitForm)}>
-            <Field name="clubName" label="Club Name" component={RenderInput}/>
-            <FieldArray name="members" label="Add Member" component={RepeatableMember} empty={{}}/>
+            <Field name="clubName" label="Club Name" component={RenderInput} validate={[required]}/>
+            <FieldArray name="members" label="Add Member" component={RepeatableMember} empty={{}} validate={[nonEmptyList]}/>
 
             <button type="submit" disabled={this.props.submitting}>Submit</button>
         </form>
@@ -98,5 +62,5 @@ const mapStateToProps = (state: AppState) => ({})
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({})
 
-const form = reduxForm<RepeatableFormData>({form: 'repeatableform', validate})(RepeatableForm)
+const form = reduxForm<RepeatableFormData>({form: 'repeatableform'})(RepeatableForm)
 export default connect<{}>(mapStateToProps, mapDispatchToProps)(form)
