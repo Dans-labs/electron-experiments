@@ -42,7 +42,7 @@ form {
     border-radius: 3px;
 }
 
-form > div {
+form .input-element {
     display: -webkit-box;
     display: -webkit-flex;
     display: -ms-flexbox;
@@ -58,26 +58,26 @@ form > div {
     padding: 10px 20px;
 }
 
-form > div.active {
+.input-element.active {
     background-color: #ee9;
 }
 
-form > div.error {
+.input-element.error {
     background-color: #e99;
 }
 
-form > div.error.active {
+.input-element.error.active {
     background-color: #e99;
 }
 
-form > div > label {
+.input-element > label {
     width: 7em;
     padding: 5px;
     font-weight: bold;
     color: #444;
 }
 
-form > div > span {
+.input-element > span {
     white-space: nowrap;
     color: #600;
     font-weight: bold;
@@ -85,7 +85,7 @@ form > div > span {
     margin-left: 5px;
 }
 
-form > div > span:before {
+.input-element span:before {
     display: inline-block;
     font: normal normal normal 14px/1 FontAwesome;
     font-size: inherit;

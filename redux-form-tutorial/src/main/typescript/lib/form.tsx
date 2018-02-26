@@ -12,12 +12,13 @@ function createRenderer<T>(renderer: renderer) {
     return (props: FieldProps & T) => {
         const {input, meta, label, required} = props
         const changed = (meta as any).changed
-        const hasError = meta.error && changed
+        const hasError = meta.error && (changed || meta.submitFailed)
         const requiredText = required ? <b style={{color: 'red'}}> *</b> : ""
 
         return <div className={[
             hasError ? 'error' : '',
             meta.active ? 'active' : '',
+            'input-element',
         ].join(' ')}>
             <label>{label}{requiredText}</label>
             {renderer(input, label, props)}
