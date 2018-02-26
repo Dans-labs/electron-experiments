@@ -4,9 +4,8 @@ import thunkMiddleware from 'redux-thunk'
 import reducers from './reducers/index'
 
 // import {Action} from 'redux'
-// import {AppState} from './model/app'
+// import {AppState} from './model/AppState'
 // const predicate = (state: AppState, action: Action) => !action.type.startsWith('@@redux-form')
-
 const predicate = () => true // if you want to see all actions
 
 const newStore = () => {

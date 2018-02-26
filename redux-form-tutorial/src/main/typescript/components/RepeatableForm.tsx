@@ -1,18 +1,69 @@
 import * as React from 'react'
 import {Component} from 'react'
-import { BaseFieldArrayProps, BaseFieldProps, Field, FieldArray, InjectedFormProps, reduxForm, WrappedFieldArrayProps, WrappedFieldProps} from "redux-form"
+import {
+    BaseFieldArrayProps,
+    BaseFieldProps,
+    Field,
+    FieldArray,
+    FormErrors,
+    InjectedFormProps,
+    reduxForm,
+    WrappedFieldArrayProps,
+    WrappedFieldProps,
+} from "redux-form"
 import {Dispatch} from "../util"
 import {AppState} from "../model/AppState"
 import {connect} from "react-redux"
+import {isEmpty} from "lodash"
 
-interface MembersData {
+const validate = (values: RepeatableFormData) => {
+    // TODO this any is just to keep the typechecker happy. Should actually be 'string' instead.
+    // See also https://github.com/DefinitelyTyped/DefinitelyTyped/issues/23922, remark 1
+    const errors: FormErrors<RepeatableFormData, any> = {} // TODO deal with this any?
+
+    if (!values.clubName) {
+        errors.clubName = "Required"
+    }
+
+    if (!values.members || !values.members.length) {
+        errors.members = {_error: "At least one member must be entered"}
+    }
+    else {
+        // TODO type any is not correct, but for now it makes sure that everything compiles...
+        // See also https://github.com/DefinitelyTyped/DefinitelyTyped/issues/23922, remark 2
+        const result: any = values.members.map(validateMember).filter(value => !isEmpty(value))
+        if (result.length) {
+            errors.members = result
+        }
+    }
+
+    console.log("validation errors", errors)
+
+    return errors
+}
+
+const validateMember = (values: MemberData) => {
+    const errors: FormErrors<MemberData> = {}
+
+    if (!values.firstName) {
+        errors.firstName = "Required"
+    }
+
+    if (!values.lastName) {
+        errors.lastName = "Required"
+    }
+
+    return errors
+}
+
+interface MemberData {
     firstName?: string
     lastName?: string
 }
 
 interface RepeatableFormData {
     clubName?: string
-    members: MembersData[]
+    members: MemberData[]
 }
 
 interface RepeatableFormProps {
@@ -24,31 +75,47 @@ type AllRepeatableFormProps = RepeatableFormProps & InjectedFormProps<Repeatable
 // temp stuff!
 type FieldProps = WrappedFieldProps & BaseFieldProps & { type?: string }
 
-type FieldArrayProps = WrappedFieldArrayProps<MembersData> & BaseFieldArrayProps<MembersData>
+type FieldArrayProps = WrappedFieldArrayProps<MemberData> & BaseFieldArrayProps<MemberData>
 
-const RenderField = ({input, label, type, meta: {touched, error}}: FieldProps) => {
+const RenderField = ({input, label, type, meta: {touched, error, active}}: FieldProps) => {
+    const hasError = touched && error
+
     return (
-        <div>
+        <div className={[
+            hasError ? 'error' : '',
+            active ? 'active' : '',
+        ].join(' ')}>
             <label>{label}</label>
-            <div>
-                <input {...input} type={type} placeholder={label}/>
-                {touched && error && <span>{error}</span>}
-            </div>
+            <input {...input} type={type} placeholder={label}/>
+            {hasError && <span>{error}</span>}
         </div>
     )
 }
 
+// TODO we can't provide the type here. Awaiting https://github.com/DefinitelyTyped/DefinitelyTyped/issues/23592
+// to be resolved. Once changed, turn '"noImplicitAny": true' in tsconfig.json back on!
 const RenderMembers = (props/*: FieldArrayProps*/) => {
+    // TODO move destructuring to lambda argument once typing issues are resolved
+    const {fields, meta} = props
+
+    // TODO submitFailed is not part of the type definition of FieldArrayProps, but it actually is there,
+    // according to the JavaScript implementation.
+    // See also https://github.com/DefinitelyTyped/DefinitelyTyped/issues/23842
+    const hasError = meta.submitFailed && meta.error
+
     return (
-        <ul>
-            <button type="button" onClick={() => props.fields.push({firstName: "FooBar"})}>Add Member</button>
-            {/*{props.meta.error && <span>{props.meta.error}</span>}*/}
-            {props.fields.map((member, index) => {
+        <ul className={[
+            hasError ? 'error' : '',
+            meta.active ? 'active' : '',
+        ].join(' ')}>
+            <button type="button" onClick={() => fields.push({})}>Add Member</button>
+            {hasError && <span>{meta.error}</span>}
+            {fields.map((member, index) => {
                 return <div key={index}>
                     <button
                         type="button"
                         title="Remove Member"
-                        onClick={() => props.fields.remove(index)}>Remove Member #{index + 1}</button>
+                        onClick={() => fields.remove(index)}>Remove Member #{index + 1}</button>
                     <h4>Member #{index + 1}</h4>
                     <Field
                         name={`${member}.firstName`}
@@ -92,5 +159,5 @@ const mapStateToProps = (state: AppState) => ({})
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({})
 
-const form = reduxForm<RepeatableFormData>({form: 'repeatable-form'})(RepeatableForm)
+const form = reduxForm<RepeatableFormData>({form: 'repeatable-form', validate})(RepeatableForm)
 export default connect<{}>(mapStateToProps, mapDispatchToProps)(form)
