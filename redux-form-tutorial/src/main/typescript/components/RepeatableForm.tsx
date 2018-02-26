@@ -33,8 +33,14 @@ const RepeatableMember = createRepeatedRender((name, index, fields) => {
             title="Remove Member"
             onClick={() => fields.remove(index)}>Remove Member #{index + 1}</button>
         <h4>Member #{index + 1}</h4>
-        <Field name={`${name}.firstName`} label="First Name" component={RenderInput} validate={[required]}/>
-        <Field name={`${name}.lastName`} label="Last Name" component={RenderInput} validate={[required]}/>
+        <Field name={`${name}.firstName`}
+               label="First Name"
+               component={RenderInput}
+               validate={[required]}/>
+        <Field name={`${name}.lastName`}
+               label="Last Name"
+               component={RenderInput}
+               validate={[required]}/>
     </div>
 })
 
@@ -50,8 +56,15 @@ class RepeatableForm extends Component<AllRepeatableFormProps> {
 
     render() {
         return <form onSubmit={this.props.handleSubmit(this.submitForm)}>
-            <Field name="clubName" label="Club Name" component={RenderInput} validate={[required]}/>
-            <FieldArray name="members" label="Add Member" component={RepeatableMember} empty={{}} validate={[nonEmptyList]}/>
+            <Field name="clubName"
+                   label="Club Name"
+                   component={RenderInput}
+                   validate={[required]}/>
+            <FieldArray name="members"
+                        label="Add Member"
+                        component={RepeatableMember}
+                        empty={{}}
+                        validate={[nonEmptyList]}/>
 
             <button type="submit" disabled={this.props.submitting}>Submit</button>
         </form>
