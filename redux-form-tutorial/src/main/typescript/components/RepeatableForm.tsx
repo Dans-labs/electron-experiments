@@ -87,7 +87,7 @@ class RepeatableForm extends Component<AllRepeatableFormProps> {
     render() {
         return <form onSubmit={this.props.handleSubmit(this.submitForm)}>
             <Field name="clubName" label="Club Name" component={RenderInput}/>
-            <FieldArray name="members" label="Add Member" component={RepeatableMember}/>
+            <FieldArray name="members" label="Add Member" component={RepeatableMember} empty={{}}/>
 
             <button type="submit" disabled={this.props.submitting}>Submit</button>
         </form>
