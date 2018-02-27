@@ -1,0 +1,33 @@
+.card {
+    margin: 10px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 2px 3px 8px 0 #d9d9d9;
+}
+
+.card.open .header::before {
+    content: "▼ ";
+}
+
+.card.closed .header::before {
+    content: "► ";
+}
+
+.header {
+    font-weight: bold;
+    cursor: pointer;
+    padding: 16px 24px;
+    background-color: lightgray;
+}
+
+.header .required {
+    float: right;
+}
+
+.card.closed .body {
+    display: none;
+}
+
+.body {
+    padding: 16px 24px;
+}
