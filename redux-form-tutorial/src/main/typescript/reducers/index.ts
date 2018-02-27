@@ -3,6 +3,7 @@ import {reducer as formReducer} from 'redux-form'
 import {usersReducer} from "./submitReducer"
 import toPath from 'lodash/topath'
 import immutable from 'object-path-immutable'
+import {foldableReducer} from "./foldableReducer"
 
 function changeReducer(state, action) {
     switch (action.type) {
@@ -23,4 +24,5 @@ export default combineReducers({
         repeatableform: changeReducer,
     }),
     users: usersReducer,
+    openedCards: foldableReducer,
 })

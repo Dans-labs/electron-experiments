@@ -1,5 +1,4 @@
 import * as React from 'react'
-import {Component} from 'react'
 import Foldable from "./Foldable"
 
 const FoldableForm = () => {
@@ -15,6 +14,7 @@ const FoldableForm = () => {
                 ornare nunc. Morbi pretium volutpat nulla at molestie. In sit amet pellentesque erat.
                 Nullam placerat tempor malesuada. Sed aliquam porttitor pharetra. Curabitur a nisi velit.</p>
         </Foldable>
+
         <Foldable title="Foldable 2" recommended>
             <h2>Second foldable pane</h2>
             <p>Donec ut enim eget leo mattis gravida. Fusce iaculis felis ut pulvinar consectetur. Mauris
