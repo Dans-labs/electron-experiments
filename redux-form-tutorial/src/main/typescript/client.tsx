@@ -8,6 +8,7 @@ import DemoForm from "./components/DemoForm"
 import RepeatableForm from "./components/RepeatableForm"
 import "../resources/css/styling"
 import 'react-datepicker/dist/react-datepicker-cssmodules.css'
+import FoldableForm from "./components/FoldableForm"
 
 ReactDOM.render(
     <Provider store={store}>
@@ -15,7 +16,8 @@ ReactDOM.render(
             <Header/>
             {/*<UsersList/>*/}
             {/*<DemoForm/>*/}
-            <RepeatableForm/>
+            {/*<RepeatableForm/>*/}
+            <FoldableForm/>
         </div>
     </Provider>,
     document.getElementById('app'),
