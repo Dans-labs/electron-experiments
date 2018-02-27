@@ -6,7 +6,7 @@ export const usersReducer: Reducer<Users> = (state = [], action) => {
     switch (action.type) {
         case "ADD_USER":
             const name = action.payload
-            const user = { id: uuid(), name }
+            const user = {id: uuid(), name}
             return [...state, user]
         case "REMOVE_USER":
             const id = action.payload

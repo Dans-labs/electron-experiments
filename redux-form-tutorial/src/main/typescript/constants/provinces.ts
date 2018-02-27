@@ -10,5 +10,5 @@ export default [
     "Zuid-Holland",
     "Zeeland",
     "Noord-Brabant",
-    "Limburg"
+    "Limburg",
 ]

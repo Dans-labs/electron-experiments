@@ -145,5 +145,5 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
     submitForm: (name: string) => dispatch(addUser(name)),
 })
 
-const form = reduxForm<DemoFormData>({ form: 'demo' })(DemoForm)
+const form = reduxForm<DemoFormData>({form: 'demo'})(DemoForm)
 export default connect<{}>(null, mapDispatchToProps)(form)

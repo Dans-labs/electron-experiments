@@ -11,11 +11,11 @@ const predicate = () => true // if you want to see all actions
 const newStore = () => {
     if (process.env.NODE_ENV === 'development') {
         const {createLogger} = require('redux-logger')
-        const { composeWithDevTools } = require('redux-devtools-extension')
-        const composeEnhancers = composeWithDevTools({ predicate })
+        const {composeWithDevTools} = require('redux-devtools-extension')
+        const composeEnhancers = composeWithDevTools({predicate})
         return createStore(
             reducers,
-            composeEnhancers(applyMiddleware(thunkMiddleware, createLogger({ predicate }))),
+            composeEnhancers(applyMiddleware(thunkMiddleware, createLogger({predicate}))),
         )
     }
     else

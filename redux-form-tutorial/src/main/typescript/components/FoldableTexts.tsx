@@ -1,7 +1,7 @@
 import * as React from 'react'
 import Foldable from "./Foldable"
 
-const FoldableForm = () => {
+const FoldableTexts = () => {
     return <div>
         <Foldable title="Foldable 1" defaultOpened required>
             <h2>First foldable pane</h2>
@@ -36,4 +36,4 @@ const FoldableForm = () => {
     </div>
 }
 
-export default FoldableForm
+export default FoldableTexts
