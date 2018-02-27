@@ -11,8 +11,6 @@ function changeReducer(state, action) {
             const fieldName = toPath(action.meta.field + ".changed")
             const newState = immutable.set(state.fields, fieldName, true)
 
-            // TODO test wanneer die changed property weer weg moet en of dit goed gaat met de huidige 'set' aanpak
-
             return {...state, fields: newState}
     }
     return state

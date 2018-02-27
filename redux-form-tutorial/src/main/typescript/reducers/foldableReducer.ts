@@ -1,6 +1,5 @@
 import {Reducer} from "redux"
-import {OpenedCards, Users} from "../model/AppState"
-import * as uuid from 'uuid/v4'
+import {OpenedCards} from "../model/AppState"
 import immutable from 'object-path-immutable'
 
 export const foldableReducer: Reducer<OpenedCards> = (state = {}, action) => {

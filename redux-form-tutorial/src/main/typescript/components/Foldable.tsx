@@ -15,7 +15,7 @@ interface FoldableArguments {
 interface FoldableProps extends FoldableArguments {
     isOpened: boolean
     toggleCard: (id: string) => ReduxAction<string>
-    register: (id: string, open: boolean) => ReduxAction<{id, open}>
+    register: (id: string, open: boolean) => ReduxAction<{ id, open }>
     unregister: (id: string) => ReduxAction<string>
 }
 
@@ -53,7 +53,7 @@ class Foldable extends Component<FoldableProps> {
 }
 
 const mapStateToProps = (state: AppState, props: FoldableArguments) => ({
-    isOpened: state.openedCards[props.title]
+    isOpened: state.openedCards[props.title],
 })
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
