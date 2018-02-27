@@ -16,8 +16,10 @@
   "dependencies": {
     "axios": "^0.17.1",
     "email-validator": "^1.1.1",
+    "lodash.topath": "^4.5.2",
     "moment": "^2.20.1",
     "monocle-ts": "^0.5.2",
+    "object-path-immutable": "^1.0.1",
     "react": "^16.2.0",
     "react-datepicker": "^1.2.1",
     "react-dom": "^16.2.0",
