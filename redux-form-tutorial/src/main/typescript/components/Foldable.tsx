@@ -1,34 +1,35 @@
 import * as React from 'react'
 import {Component} from 'react'
-import {connect, MapDispatchToProps} from "react-redux"
+import {connect} from "react-redux"
 import {AppState} from "../model/AppState"
-import {Dispatch} from "../util"
+import {Dispatch, ReduxAction} from "../util"
+import {toggle} from "../actions/foldableActions"
 
-interface FoldableProps {
+interface FoldableArguments {
     title: string
     required?: boolean
     recommended?: boolean
     defaultOpened?: boolean
 }
 
-// TODO can I move this state to Redux?
-interface FoldableState {
-    opened: boolean
+interface FoldableProps extends FoldableArguments {
+    toggleCard: (id: string) => ReduxAction<string>
+    isOpened: boolean
 }
 
 const Required = () => <span className="required">Required</span>
 const Recommended = () => <span className="required">Recommended</span>
 
-class Foldable extends Component<FoldableProps, FoldableState> {
+class Foldable extends Component<FoldableProps> {
     constructor(props: FoldableProps) {
         super(props)
-        this.state = {
-            opened: this.props.defaultOpened || false
-        }
+
+        if (this.props.defaultOpened)
+            this.toggleCard()
     }
 
-    handleClick = () => {
-        this.setState((prevState) => ({...prevState, opened: !prevState.opened}))
+    toggleCard = () => {
+        this.props.toggleCard(this.props.title)
     }
 
     private renderPriority = () => {
@@ -39,11 +40,19 @@ class Foldable extends Component<FoldableProps, FoldableState> {
     }
 
     render() {
-        return <div className={this.state.opened == true ? "card open" : "card closed"}>
-            <div className="header" onClick={this.handleClick}>{this.props.title}{this.renderPriority()}</div>
+        return <div className={this.props.isOpened ? "card open" : "card closed"}>
+            <div className="header" onClick={this.toggleCard}>{this.props.title}{this.renderPriority()}</div>
             <div className="body">{this.props.children}</div>
         </div>
     }
 }
 
-export default Foldable
+const mapStateToProps = (state: AppState, props: FoldableArguments) => ({
+    isOpened: state.openedCards.some(value => value === props.title)
+})
+
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+    toggleCard: id => dispatch(toggle(id))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Foldable)
