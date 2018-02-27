@@ -3,8 +3,9 @@ export interface User {
     name: string
 }
 export type Users = User[]
+export type OpenedCards = { [id: string]: boolean }
 
 export interface AppState {
     users: Users
-    openedCards: string[] // TODO use a dictionary instead: [id] -> true|false
+    openedCards: OpenedCards
 }

@@ -3,7 +3,7 @@ import {Component} from 'react'
 import {connect} from "react-redux"
 import {AppState} from "../model/AppState"
 import {Dispatch, ReduxAction} from "../util"
-import {toggle} from "../actions/foldableActions"
+import {register, toggle} from "../actions/foldableActions"
 
 interface FoldableArguments {
     title: string
@@ -13,8 +13,9 @@ interface FoldableArguments {
 }
 
 interface FoldableProps extends FoldableArguments {
-    toggleCard: (id: string) => ReduxAction<string>
     isOpened: boolean
+    toggleCard: (id: string) => ReduxAction<string>
+    register: (id: string, open: boolean) => ReduxAction<[string, boolean]>
 }
 
 const Required = () => <span className="required">Required</span>
@@ -24,8 +25,7 @@ class Foldable extends Component<FoldableProps> {
     constructor(props: FoldableProps) {
         super(props)
 
-        if (this.props.defaultOpened)
-            this.toggleCard()
+        this.props.register(this.props.title, this.props.defaultOpened || false)
     }
 
     toggleCard = () => {
@@ -48,11 +48,12 @@ class Foldable extends Component<FoldableProps> {
 }
 
 const mapStateToProps = (state: AppState, props: FoldableArguments) => ({
-    isOpened: state.openedCards.some(value => value === props.title)
+    isOpened: state.openedCards[props.title]
 })
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-    toggleCard: id => dispatch(toggle(id))
+    toggleCard: id => dispatch(toggle(id)),
+    register: (id, open) => dispatch(register(id, open))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Foldable)
