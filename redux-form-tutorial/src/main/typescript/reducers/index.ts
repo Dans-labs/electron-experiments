@@ -1,40 +1,26 @@
 import {combineReducers} from "redux"
 import {reducer as formReducer} from 'redux-form'
 import {usersReducer} from "./submitReducer"
+import toPath from 'lodash/topath'
+import immutable from 'object-path-immutable'
+
+function changeReducer(state, action) {
+    switch (action.type) {
+        case "@@redux-form/CHANGE":
+            const fieldName = toPath(action.meta.field + ".changed")
+            const newState = immutable.set(state.fields, fieldName, true)
+
+            // TODO test wanneer die changed property weer weg moet en of dit goed gaat met de huidige 'set' aanpak
+
+            return {...state, fields: newState}
+    }
+    return state
+}
 
 export default combineReducers({
     form: formReducer.plugin({
-        demo: (state, action) => {
-            switch (action.type) {
-                case "@@redux-form/CHANGE":
-                    const fieldName = action.meta.field
-                    return {
-                        ...state,
-                        fields: {
-                            ...state.fields,
-                            [fieldName]: {
-                                ...state.fields[fieldName],
-                                changed: true,
-                            },
-                        },
-                    }
-                case "@@redux-form/TOUCH":
-                    const fields = action.meta.fields.map((fieldName: string) => ({
-                        [fieldName]: {
-                            ...state.fields[fieldName],
-                            changed: true,
-                        },
-                    }))
-
-                    return {
-                        ...state,
-                        fields: {
-                            ...Object.assign(state.fields, ...fields),
-                        },
-                    }
-            }
-            return state
-        },
+        demo: changeReducer,
+        repeatableform: changeReducer,
     }),
     users: usersReducer,
 })
