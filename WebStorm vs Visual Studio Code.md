@@ -11,7 +11,7 @@ WebStorm vs Visual Studio Code
 
 WebStorm | VS Code
 ---------|--------
-IDE | Editor
+IDE | Editor with some IDE features (although [[jjinux](http://www.jjinux.com/2017/12/my-thoughts-on-vs-code-vs-webstorm.html)] calls it an IDE)
 Payed | Free
 Features we're already familiar with from IntelliJ IDEA; they share the same underlying platform | Has nothing to do with Visual Studio! It's made by the same company, but while Visual Studio is mainly focused on the Microsoft Windows ecosystem, VS Code can deploy in many environments and is based on web technology
 Plugins; same/shared plugins with other Jetbrains products | Extensions, similar to Webstorm
