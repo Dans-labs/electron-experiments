@@ -11,6 +11,7 @@ import FoldableFormPage from "./components/FoldableFormPage"
 import HomePage from "./components/HomePage"
 import {BrowserRouter} from "react-router-dom"
 import {Route, Switch} from "react-router"
+import LoadFromStateFormPage from "./components/LoadFromStateFormPage"
 
 ReactDOM.render(
     <Provider store={store}>
@@ -22,6 +23,7 @@ ReactDOM.render(
                     <Route path="/demoform" component={DemoFormPage}/>
                     <Route path="/repeatable" component={RepeatableFormPage}/>
                     <Route path="/foldable" component={FoldableFormPage}/>
+                    <Route path="/loadfromstate" component={LoadFromStateFormPage}/>
                     <Route render={() => <p>Not Found</p>}/>
                 </Switch>
             </div>
