@@ -6,7 +6,15 @@ export interface User {
 export type Users = User[]
 export type OpenedCards = { [id: string]: boolean }
 
+export interface Person {
+    name: string
+    age: number
+}
+export type Persons = Person[]
+
 export interface AppState {
     users: Users
     openedCards: OpenedCards
+    persons: Persons
+    initialState: FormData
 }
