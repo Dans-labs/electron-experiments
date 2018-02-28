@@ -28,7 +28,11 @@ function createRenderer<T>(renderer: renderer) {
     }
 }
 
-export const RenderInput = createRenderer((input, label) => <input {...input} placeholder={label}/>)
+interface InputProps {
+    type?: string
+}
+
+export const RenderInput = createRenderer<InputProps>((input, label, {type}: InputProps) => <input {...input} type={type || "text"} placeholder={label}/>)
 
 export const RenderSelect = createRenderer((input, label, {children}) => <select {...input}>{children}</select>)
 
