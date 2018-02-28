@@ -40,7 +40,6 @@
     "@types/react-router-dom": "^4.2.4",
     "@types/redux-form": "^7.0.14",
     "@types/redux-logger": "^3.0.5",
-    "@types/redux-promise-middleware": "0.0.9",
     "@types/uuid": "^3.4.3",
     "@types/webpack-env": "^1.13.5",
     "autoprefixer": "^8.0.0",
