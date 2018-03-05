@@ -1,3 +1,18 @@
 #app {
   max-width: 500px;
 }
+
+.material-icons {
+  float: right;
+  visibility: hidden;
+  cursor: pointer;
+  color: darkgrey;
+}
+
+.material-icons:hover {
+  color: black;
+}
+
+.collection-item:hover .material-icons {
+  visibility: visible;
+}

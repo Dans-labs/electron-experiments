@@ -22,24 +22,29 @@ export class App extends React.Component<{}, AppState> {
   }
 
   addItem = (value: string) => {
-    const newState = [...this.state.items, new Item(value)]
-    this.setState({ ...this.state, items: newState })
+    this.setState(prevState => ({ ...prevState, items: [...prevState.items, new Item(value)] }))
   }
 
   removeItem = (id: string) => {
-    const newState = this.state.items.filter(item => item.id != id)
-    this.setState({ ...this.state, items: newState })
+    this.setState(prevState => ({ ...prevState, items: prevState.items.filter(item => item.id != id) }))
   }
 
   clearItems = () => {
-    this.setState({ ...this.state, items: [] })
+    this.setState(prevState => ({ ...prevState, items: [] }))
+  }
+
+  toggleDone = (id: string, done: boolean) => {
+      this.setState(prevState => ({ ...prevState, items: prevState.items.map(item => item.id === id ? item.toggleDone(done) : item) }))
   }
 
   render() {
     return (
       <div>
         <Header>Shopping list</Header>
-        <ShoppingList items={this.state.items} onRemoveItem={this.removeItem} onClearItems={this.clearItems} />
+        <ShoppingList items={this.state.items}
+                      onRemoveItem={this.removeItem}
+                      onClearItems={this.clearItems}
+                      itemDone={this.toggleDone} />
         <hr />
         <Form onSubmit={this.addItem} />
       </div>
