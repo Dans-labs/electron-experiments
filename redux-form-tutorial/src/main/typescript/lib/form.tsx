@@ -110,15 +110,12 @@ export function createRepeatedRender<Data>(renderer: FieldIterate<Data, JSX.Elem
     // TODO we can't provide the type here. Awaiting https://github.com/DefinitelyTyped/DefinitelyTyped/issues/23592
     // to be resolved. Once changed, turn '"noImplicitAny": true' in tsconfig.json back on!
     return (props/*: FieldArrayProps<Data>*/) => {
-        const {fields, meta, label, empty} = props
-        // TODO submitFailed is not part of the type definition of FieldArrayProps, but it actually is there,
-        // according to the JavaScript implementation.
-        // See also https://github.com/DefinitelyTyped/DefinitelyTyped/issues/23842
-        const hasError = meta.error && meta.submitFailed
+        const {fields, meta: {error, submitFailed}, label, empty} = props
+        const hasError = error && submitFailed
 
         return <div className={hasError ? 'error' : ''}>
             <button type="button" onClick={() => fields.push(empty)}>{label}</button>
-            {hasError && <span>{meta.error}</span>}
+            {hasError && <span>{error}</span>}
             {fields.map(renderer)}
         </div>
     }
