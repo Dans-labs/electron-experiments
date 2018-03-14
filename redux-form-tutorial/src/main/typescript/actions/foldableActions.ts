@@ -1,6 +1,6 @@
 import {ReduxAction} from "../util"
 
-export const register: (id: string, open: boolean) => ReduxAction<{ id, open }> = (id, open) => ({
+export const register: (id: string, open: boolean) => ReduxAction<{ id: string, open: boolean }> = (id, open) => ({
     type: "REGISTER_FOLDABLE",
     payload: {id, open},
 })

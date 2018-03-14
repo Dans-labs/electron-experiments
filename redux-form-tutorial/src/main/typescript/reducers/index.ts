@@ -1,12 +1,13 @@
-import {combineReducers} from "redux"
+import { AnyAction, combineReducers } from "redux"
 import {reducer as formReducer} from 'redux-form'
 import {usersReducer} from "./submitReducer"
-import toPath from 'lodash/topath'
+import {toPath} from 'lodash'
 import immutable from 'object-path-immutable'
 import {foldableReducer} from "./foldableReducer"
 import {initializeForm, loadFromStateReducer} from "./loadFromStateReducer"
+import { FormState } from "redux-form/lib/reducer"
 
-function changeReducer(state, action) {
+function changeReducer(state: FormState, action: AnyAction) {
     switch (action.type) {
         case "@@redux-form/CHANGE":
             const fieldName = toPath(action.meta.field + ".changed")

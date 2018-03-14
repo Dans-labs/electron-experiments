@@ -58,8 +58,8 @@ const mapStateToProps = (state: AppState) => ({
 })
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-    submitForm: data => dispatch(storeData(data)),
-    loadData: id => loadDataFromServer(id)(dispatch),
+    submitForm: (data: FormData) => dispatch(storeData(data)),
+    loadData: (id: string) => loadDataFromServer(id)(dispatch),
 })
 
 const form = reduxForm<FormData>({form: 'loadfromstate', enableReinitialize: true})(LoadFromStateForm)

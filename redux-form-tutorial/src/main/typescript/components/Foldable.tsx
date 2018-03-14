@@ -12,12 +12,17 @@ interface FoldableArguments {
     defaultOpened?: boolean
 }
 
-interface FoldableProps extends FoldableArguments {
+interface FoldablePropsValues {
     isOpened: boolean
+}
+
+interface FoldablePropsFunctions {
     toggleCard: (id: string) => ReduxAction<string>
-    register: (id: string, open: boolean) => ReduxAction<{ id, open }>
+    register: (id: string, open: boolean) => ReduxAction<{ id: string, open: boolean }>
     unregister: (id: string) => ReduxAction<string>
 }
+
+type FoldableProps = FoldableArguments & FoldablePropsValues & FoldablePropsFunctions
 
 const Required = () => <span className="required">Required</span>
 const Recommended = () => <span className="required">Recommended</span>
@@ -57,9 +62,9 @@ const mapStateToProps = (state: AppState, props: FoldableArguments) => ({
 })
 
 const mapDispatchToProps = (dispatch: Dispatch) => ({
-    toggleCard: id => dispatch(toggle(id)),
-    register: (id, open) => dispatch(register(id, open)),
-    unregister: id => dispatch(unregister(id)),
+    toggleCard: (id: string) => dispatch(toggle(id)),
+    register: (id: string, open: boolean) => dispatch(register(id, open)),
+    unregister: (id: string) => dispatch(unregister(id)),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Foldable)
+export default connect<FoldablePropsValues, FoldablePropsFunctions>(mapStateToProps, mapDispatchToProps)(Foldable)
