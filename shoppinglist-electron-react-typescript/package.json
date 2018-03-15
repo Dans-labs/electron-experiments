@@ -21,21 +21,21 @@
   },
   "homepage": "https://github.com/rvanheest-DANS-KNAW/electron-experiments#readme",
   "dependencies": {
-    "electron": "^1.7.11",
+    "electron": "^1.8.3",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "uuid": "^3.2.1"
   },
   "devDependencies": {
     "@types/electron": "^1.6.10",
-    "@types/react": "^16.0.34",
-    "@types/react-dom": "^16.0.3",
+    "@types/react": "^16.0.40",
+    "@types/react-dom": "^16.0.4",
     "@types/uuid": "^3.4.3",
-    "awesome-typescript-loader": "^3.4.1",
-    "electron-packager": "^10.1.1",
+    "awesome-typescript-loader": "^3.5.0",
+    "electron-packager": "^10.1.2",
     "electron-react-devtools": "^0.5.3",
     "source-map-loader": "^0.2.3",
-    "typescript": "^2.6.2",
-    "webpack": "^3.10.0"
+    "typescript": "^2.7.2",
+    "webpack": "^3.11.0"
   }
 }
