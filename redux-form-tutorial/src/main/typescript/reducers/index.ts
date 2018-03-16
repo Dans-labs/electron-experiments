@@ -23,6 +23,7 @@ export default combineReducers({
         demo: changeReducer,
         repeatableform: changeReducer,
         loadfromstate: changeReducer,
+        composedForm: changeReducer,
     }),
     users: usersReducer,
     openedCards: foldableReducer,

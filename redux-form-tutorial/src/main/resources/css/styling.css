@@ -157,7 +157,7 @@ form button[type='button'][disabled] {
     cursor: not-allowed;
 }*/
 
-form button[type='submit'] {
+form button[type='submit'], .submitButton {
     white-space: nowrap;
     display: inline-block;
     border-radius: 5px;
@@ -168,28 +168,28 @@ form button[type='submit'] {
     border: 1px solid #285f8f;
 }
 
-form button[type='submit']:visited {
+form button[type='submit']:visited, .submitButton:visited {
     color: white;
 }
 
-form button[type='submit']:hover {
+form button[type='submit']:hover, .submitButton:hover {
     background-image: linear-gradient(#4f93ce, #285f8f);
 }
 
-form button[type='submit']:hover[disabled] {
+form button[type='submit']:hover[disabled], .submitButton:hover[disabled] {
     background-image: linear-gradient(#4f93ce, #285f8f);
 }
 
-form button[type='submit']:visited {
+form button[type='submit']:visited, .submitButton:visited {
     color: black;
 }
 
-form button[type='submit'][disabled] {
+form button[type='submit'][disabled], .submitButton[disabled] {
     opacity: 0.6;
     cursor: not-allowed;
 }
 
-form button[type='submit']:before {
+form button[type='submit']:before, .submitButton:before {
     display: inline-block;
     font: normal normal normal 14px/1 FontAwesome;
     font-size: inherit;
@@ -201,11 +201,11 @@ form button[type='submit']:before {
     margin-right: 5px;
 }
 
-form button.submitting {
+form button.submitting, .submitButton.submitting {
     cursor: wait !important;
 }
 
-form button.add:before {
+form button.add:before, .submitButton.add:before {
     display: inline-block;
     font: normal normal normal 14px/1 FontAwesome;
     font-size: inherit;
