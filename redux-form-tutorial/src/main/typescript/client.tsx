@@ -7,11 +7,12 @@ import 'react-datepicker/dist/react-datepicker-cssmodules.css'
 import NavigationBar from "./components/NavigationBar"
 import RepeatableFormPage from "./components/RepeatableFormPage"
 import DemoFormPage from "./components/DemoFormPage"
-import FoldableFormPage from "./components/FoldableFormPage"
+import FoldableFormPage from "./components/FoldablePage"
 import HomePage from "./components/HomePage"
 import {BrowserRouter} from "react-router-dom"
 import {Route, Switch} from "react-router"
 import LoadFromStateFormPage from "./components/LoadFromStateFormPage"
+import ComposedFormPage from "./components/composed/ComposedFormPage"
 
 ReactDOM.render(
     <Provider store={store}>
@@ -24,6 +25,7 @@ ReactDOM.render(
                     <Route path="/repeatable" component={RepeatableFormPage}/>
                     <Route path="/foldable" component={FoldableFormPage}/>
                     <Route path="/loadfromstate" component={LoadFromStateFormPage}/>
+                    <Route path="/composed" component={ComposedFormPage}/>
                     <Route render={() => <p>Not Found</p>}/>
                 </Switch>
             </div>
