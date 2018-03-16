@@ -1,12 +1,12 @@
-import * as React from 'react'
-import {BaseFieldArrayProps, WrappedFieldArrayProps, WrappedFieldInputProps} from "redux-form"
-import {BaseFieldProps, WrappedFieldProps} from "redux-form/lib/Field"
-import DatePicker from 'react-datepicker'
+import * as React from "react"
+import { WrappedFieldArrayProps, WrappedFieldInputProps } from "redux-form"
+import { WrappedFieldProps } from "redux-form/lib/Field"
+import DatePicker from "react-datepicker"
 import * as moment from "moment"
-import {Moment} from "moment"
-import {FieldIterate} from "redux-form/lib/FieldArray"
+import { Moment } from "moment"
+import { FieldIterate } from "redux-form/lib/FieldArray"
 
-type FieldProps = WrappedFieldProps & BaseFieldProps & { required?: boolean }
+type FieldProps = WrappedFieldProps & { required?: boolean }
 type renderer = (input: WrappedFieldInputProps, label?: string, rest?: any) => JSX.Element
 
 function createRenderer<T>(renderer: renderer) {
@@ -103,13 +103,10 @@ export const RenderComposed = createRenderer((input, label, {children}) => <div 
 
 // repeatable elements
 type FieldArrayProps<FieldValue> = WrappedFieldArrayProps<FieldValue>
-    & BaseFieldArrayProps<FieldValue>
     & { label: string, empty: FieldValue }
 
 export function createRepeatedRender<Data>(renderer: FieldIterate<Data, JSX.Element>) {
-    // TODO we can't provide the type here. Awaiting https://github.com/DefinitelyTyped/DefinitelyTyped/issues/23592
-    // to be resolved. Once changed, turn '"noImplicitAny": true' in tsconfig.json back on!
-    return (props/*: FieldArrayProps<Data>*/) => {
+    return (props: FieldArrayProps<Data>) => {
         const {fields, meta: {error, submitFailed}, label, empty} = props
         const hasError = error && submitFailed
 
