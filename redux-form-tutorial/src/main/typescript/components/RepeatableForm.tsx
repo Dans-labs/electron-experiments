@@ -1,10 +1,10 @@
 import * as React from "react"
 import { Component } from "react"
-import { Field, FieldArray, InjectedFormProps, reduxForm, WrappedFieldArrayProps, } from "redux-form"
+import { Field, InjectedFormProps, reduxForm, } from "redux-form"
 import { Dispatch } from "../util"
 import { AppState } from "../model/AppState"
 import { connect } from "react-redux"
-import { createRepeatedRender, RenderInput } from "../lib/form"
+import { createRepeatedRender, RenderInput, RepeatableField } from "../lib/form"
 
 const isRequired = (errorText: string) => (value?: any) => value ? undefined : errorText
 const required = isRequired("Required")
@@ -60,32 +60,11 @@ class RepeatableForm extends Component<AllRepeatableFormProps> {
                    label="Club Name"
                    component={RenderInput}
                    validate={[required]}/>
-            <FieldArray name="members"
-                        label="Add Member"
-                        component={RepeatableMember}
-                        empty={{}}
-                        validate={[nonEmptyList]}/>
-            {/* TODO remove the FieldArray below. That one is just for testing! */}
-            <FieldArray name="members"
-                        component={(props: WrappedFieldArrayProps<{foo: boolean}> & {label: string, empty: any}) => {
-                            console.log(props)
-
-                            return (
-                                <>
-                                    <h1>hello</h1>
-                                    <ul>{props.fields.map((x, index) => {
-                                        console.log("x", x)
-                                        return <li key={index}>{x}</li>
-                                    })}</ul>
-                                    <button onClick={() => {
-                                        props.fields.push({foo: true})
-                                        props.fields.push({foo: false})
-                                    }}>click me</button>
-                                </>
-                            )
-                        }}
-                        label="Add Member"
-                        empty={{}}/>
+            <RepeatableField name="members"
+                             label="Add Member"
+                             component={RepeatableMember}
+                             empty={{}}
+                             validate={[nonEmptyList]}/>
 
             <button type="submit" disabled={this.props.submitting}>Submit</button>
         </form>
