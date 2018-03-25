@@ -1,5 +1,5 @@
 import * as React from "react"
-import { WrappedFieldArrayProps, WrappedFieldInputProps } from "redux-form"
+import { FieldArray, GenericFieldArray, WrappedFieldArrayProps, WrappedFieldInputProps } from "redux-form"
 import { WrappedFieldProps } from "redux-form/lib/Field"
 import DatePicker from "react-datepicker"
 import * as moment from "moment"
@@ -104,6 +104,8 @@ export const RenderComposed = createRenderer((input, label, {children}) => <div 
 // repeatable elements
 type FieldArrayProps<FieldValue> = WrappedFieldArrayProps<FieldValue>
     & { label: string, empty: FieldValue }
+
+export const RepeatableField = FieldArray as new <Data>() => GenericFieldArray<Data, { label: string, empty: Data }>;
 
 export function createRepeatedRender<Data>(renderer: FieldIterate<Data, JSX.Element>) {
     return (props: FieldArrayProps<Data>) => {
