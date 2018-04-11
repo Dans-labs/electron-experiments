@@ -1,3 +1,5 @@
+import { FormData } from "../components/LoadFromStateForm"
+
 export interface User {
     id: string
     name: string
