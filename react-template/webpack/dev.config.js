@@ -1,9 +1,9 @@
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const baseConfig = require('./base.config.js');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-module.exports = merge(baseConfig, {
+module.exports = (env, argv) => merge(baseConfig(env, argv), {
     // Enable sourcemaps for debugging webpack's output.
     devtool: 'eval-source-map',
     output: {
@@ -22,19 +22,18 @@ module.exports = merge(baseConfig, {
         rules: [
             {
                 test: /\.css$/,
-                use: ExtractTextPlugin.extract({
-                    fallback: 'style-loader',
-                    use: [
-                        {
-                            loader: 'css-loader',
-                            options: {sourceMap: true},
-                        },
-                        {
-                            loader: 'postcss-loader',
-                            options: {config: {path: 'webpack/postcss.config.js'}},
-                        },
-                    ]
-                }),
+                use: [
+                    'css-hot-loader',
+                    MiniCssExtractPlugin.loader,
+                    {
+                        loader: 'css-loader',
+                        options: {sourceMap: true},
+                    },
+                    {
+                        loader: 'postcss-loader',
+                        options: {config: {path: 'webpack/postcss.config.js'}},
+                    },
+                ],
             },
         ],
     },

@@ -1,8 +1,8 @@
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-module.exports = {
+module.exports = (env, argv) => ({
     entry: [
         'react-hot-loader/patch',
         './src/main/typescript/index.tsx',
@@ -39,18 +39,30 @@ module.exports = {
                     },
                 ],
             },
+            {
+                type: "javascript/auto",
+                test: /\.(json)$/i,
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: 'app/[name].[ext]',
+                        }
+                    }
+                ]
+            },
         ],
     },
 
     plugins: [
-        new webpack.EnvironmentPlugin([
-            'NODE_ENV',
-        ]),
+        new webpack.DefinePlugin({
+            __DEVELOPMENT__: argv.mode === "development",
+        }),
         // insert the bundled JavaScript into this file
         new HtmlWebpackPlugin({
             template: './src/main/html/index.html',
         }),
         // Extract imported CSS into own file
-        new ExtractTextPlugin('[name].bundle.[chunkhash].css'),
+        new MiniCssExtractPlugin('[name].bundle.[chunkhash].css'),
     ],
-};
+});
