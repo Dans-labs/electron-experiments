@@ -1,5 +1,5 @@
-react-redux-template
-====================
+react-template
+==============
 
 Template project for creating a web application with React
 
